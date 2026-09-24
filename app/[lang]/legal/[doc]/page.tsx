@@ -161,7 +161,7 @@ export default function LegalDocumentPage({
               Todos los precios publicados en el portal y la calculadora están
               expresados en Pesos Mexicanos (MXN) más IVA y son validados
               mediante el diagnóstico técnico presencial gratuito &ldquo;Terra
-              Check&rdquo; de 48 puntos. Emitimos CFDI 4.0 deducible en México e
+              Check&rdquo;. Emitimos CFDI 4.0 deducible en México e
               invoices internacionales en USD o EUR.
             </p>
           </div>

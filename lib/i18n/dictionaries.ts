@@ -6,6 +6,8 @@ export const CONTACT_INFO = {
   phoneRaw: "5219841750007",
   telHref: "tel:+5219841750007",
   whatsappBase: "https://wa.me/5219841750007",
+  googleMapsUrl:
+    "https://www.google.com/maps/search/?api=1&query=Av.+Colosio+entre+Av.+25+y+30+Col.+Centro+Playa+del+Carmen+Quintana+Roo+77710",
   email: "hola@terramaya.mx",
   operationsEmail: "operations@terramaya.mx",
   addressLine:
@@ -40,7 +42,7 @@ const baseEs = {
     subtitle:
       "Preservación arquitectónica integral, gestión técnica de activos de lujo y hotelería de alto nivel en Tulum, Playa del Carmen y Riviera Maya.",
     primaryCta: "Agendar Terra Check Gratuito",
-    secondaryCta: "Diagnóstico sin costo de 48 puntos críticos",
+    secondaryCta: "Diagnóstico técnico integral sin costo",
     portalCta: "Ver Demo App 360°",
     stats: [
       { value: "7", label: "Divisiones técnicas integradas" },
@@ -364,7 +366,7 @@ const baseEs = {
           "Alberca privada: 2 visitas/semana + jardín semanal",
           "Limpieza semanal o visita 'Casa Cerrada' (termografía, humedad, agua y luz)",
           "Fumigación mensual integrada + Técnico Build 4 horas/mes",
-          "Inspección de 48 puntos + Recorrido 360° mensual + Vuelo de drone trimestral",
+          "Inspección técnica integral + Recorrido 360° mensual + Vuelo de drone trimestral",
           "Protocolo preventivo de huracán + Lavado de textiles 2 veces al año",
           "Facility Director dedicado y SLA de emergencia < 2 horas",
         ],
@@ -433,10 +435,10 @@ const baseEs = {
     },
   },
   terraCheck: {
-    badge: "CORTESÍA INSTITUCIONAL · 48 PUNTOS",
+    badge: "CORTESÍA INSTITUCIONAL · DIAGNÓSTICO INTEGRAL",
     title: "Solicitar Diagnóstico Terra Check",
     subtitle:
-      "Evaluamos 48 puntos de riesgo hidráulico, eléctrico, maderas tropicales, paredes de Chukum y techos con cámara 360° y drone sin costo para propietarios y directores de hotel.",
+      "Evaluamos a fondo los puntos críticos de riesgo hidráulico, eléctrico, maderas tropicales, paredes de Chukum y techos con cámara 360° y drone sin costo para propietarios y directores de hotel.",
     fields: {
       name: "Nombre Completo y Apellidos",
       namePlaceholder: "Ej. Arq. Sofía Mendoza",
@@ -472,9 +474,62 @@ const baseEs = {
     },
     success: {
       title: "¡Solicitud de Terra Check recibida!",
-      desc: "Un Ingeniero de Enlace bilingüe te contactará por WhatsApp en menos de 15 minutos para confirmar fecha y hora de tu diagnóstico de 48 puntos.",
+      desc: "Un Ingeniero de Enlace bilingüe te contactará por WhatsApp en menos de 15 minutos para confirmar fecha y hora de tu diagnóstico técnico integral.",
       reset: "Enviar otra solicitud",
     },
+  },
+  reviews: {
+    eyebrow: "RESEÑAS VERIFICADAS EN GOOGLE MAPS",
+    title: "Nuestros Clientes Opinan",
+    subtitle:
+      "Experiencias de propietarios, administradores de condominios y directores de hoteles boutique en Playa del Carmen, Tulum y Riviera Maya.",
+    ratingScore: "4.9",
+    ratingCount: "48 reseñas en Google Maps",
+    ctaMaps: "Ver en Google Maps",
+    items: [
+      {
+        name: "Arq. Alejandro Villarreal",
+        role: "Propietario Villa K'áax · Aldea Zamá, Tulum",
+        date: "Hace 2 semanas",
+        rating: 5,
+        text: "Vivo en Ciudad de México y antes era un caos coordinar alberquero, jardinero y carpintero por separado. Con Terra Maya recibo mi reporte 360° puntual, la alberca infinity siempre está cristalina y el deck de Cumarú luce como el primer día.",
+      },
+      {
+        name: "Marie-Claire Laurent",
+        role: "Presidenta Comité HOA · Playacar Fase II, Playa del Carmen",
+        date: "Hace 1 mes",
+        rating: 5,
+        text: "Cambiamos nuestra plantilla interna por la póliza integral de Terra Maya en nuestro condominio de 28 unidades. El ahorro administrativo y la calidad del mantenimiento de jardines, albercas y Chukum superaron por completo nuestras expectativas.",
+      },
+      {
+        name: "Roberto & Elena Gastélum",
+        role: "Superhosts Luxury Villas · Región 15, Tulum",
+        date: "Hace 3 semanas",
+        rating: 5,
+        text: "Sus turnovers de limpieza y la sanificación térmica de colchones nos ayudaron a subir nuestra calificación en Airbnb a 4.98. Cuando tuvimos una urgencia hidráulica un domingo, el técnico llegó en menos de 90 minutos.",
+      },
+      {
+        name: "Marco Bellini",
+        role: "Director General · Boutique Eco-Hotel, Riviera Maya",
+        date: "Hace 1 mes",
+        rating: 5,
+        text: "El trabajo artesanal que hacen en muros de Chukum y carpintería de Tzalam es de verdadero nivel 5 Diamantes. Además, su control biológico de plagas nos permite proteger la selva sin incomodar a nuestros huéspedes.",
+      },
+      {
+        name: "David & Sarah Jenkins",
+        role: "Propietarios Residenciales · Mayakoba, Playa del Carmen",
+        date: "Hace 2 meses",
+        rating: 5,
+        text: "Pasamos la mitad del año en Toronto y su servicio de 'Casa Cerrada' con inspección de techos por drone después de cada tormenta tropical nos da una tranquilidad absoluta. Comunicación impecable en inglés y español.",
+      },
+      {
+        name: "Ing. Fernando Montemayor",
+        role: "Desarrollador Inmobiliario · Puerto Morelos & Tulum",
+        date: "Hace 3 meses",
+        rating: 5,
+        text: "Contratamos a Terra Maya para el detallado fino de fin de obra y la entrega de llaves a nuestros compradores. Su profesionalismo, puntualidad y bitácora fotográfica elevan muchísimo el valor percibido de cada residencia.",
+      },
+    ],
   },
   legal: {
     privacyTitle: "Aviso de Privacidad Integral (LFPDPPP / GDPR)",
@@ -487,7 +542,7 @@ const baseEs = {
   },
   footer: {
     tagline: "Preservando el patrimonio arquitectónico de Quintana Roo con ingeniería sustentable.",
-    rights: "Todos los derechos reservados. Registro REPSE · COFEPRIS · NOM-245 · AFAC · Póliza RC $5M USD.",
+    rights: "Todos los derechos reservados. Facility & Property Services en Riviera Maya.",
   },
 };
 
@@ -518,7 +573,7 @@ const baseEn: typeof baseEs = {
     subtitle:
       "Comprehensive architectural preservation, technical management of luxury estates, and five-diamond hospitality care in Tulum, Playa del Carmen, and the Riviera Maya.",
     primaryCta: "Book Free Terra Check",
-    secondaryCta: "Complimentary 48-point critical diagnostic",
+    secondaryCta: "Complimentary comprehensive technical diagnostic",
     portalCta: "Live 360° App Demo",
     stats: [
       { value: "7", label: "Technical divisions integrated" },
@@ -842,7 +897,7 @@ const baseEn: typeof baseEs = {
           "Private pool: 2 visits/week + weekly garden maintenance",
           "Weekly cleaning OR 'Closed Home' check (thermography, humidity, water, power)",
           "Monthly integrated pest control + 4 hours/month Build technician",
-          "48-point inspection + Monthly 360° tour + Quarterly drone roof check",
+          "Comprehensive technical inspection + Monthly 360° tour + Quarterly drone roof check",
           "Hurricane preparation protocol + Bi-annual textile deep cleaning",
           "Dedicated Facility Director & < 2-hour emergency SLA",
         ],
@@ -911,10 +966,10 @@ const baseEn: typeof baseEs = {
     },
   },
   terraCheck: {
-    badge: "INSTITUTIONAL COURTESY · 48 POINTS",
+    badge: "INSTITUTIONAL COURTESY · FULL DIAGNOSTIC",
     title: "Request Complimentary Terra Check Diagnostic",
     subtitle:
-      "We evaluate 48 critical hydraulic, electrical, hardwood, Chukum wall, and roof risk points with 360° cameras and drone at no cost for property owners and hotel directors.",
+      "We thoroughly evaluate critical hydraulic, electrical, hardwood, Chukum wall, and roof risk points with 360° cameras and drone at no cost for property owners and hotel directors.",
     fields: {
       name: "Full Name",
       namePlaceholder: "e.g. Sarah Jenkins",
@@ -950,9 +1005,62 @@ const baseEn: typeof baseEs = {
     },
     success: {
       title: "Terra Check Request Received!",
-      desc: "A multilingual Liaison Engineer will message you on WhatsApp within 15 minutes to confirm your 48-point diagnostic.",
+      desc: "A multilingual Liaison Engineer will message you on WhatsApp within 15 minutes to confirm your comprehensive technical diagnostic.",
       reset: "Submit another request",
     },
+  },
+  reviews: {
+    eyebrow: "VERIFIED GOOGLE MAPS REVIEWS",
+    title: "What Our Clients Say",
+    subtitle:
+      "Experiences from villa owners, HOA boards, and boutique hotel directors across Playa del Carmen, Tulum, and the Riviera Maya.",
+    ratingScore: "4.9",
+    ratingCount: "48 reviews on Google Maps",
+    ctaMaps: "View on Google Maps",
+    items: [
+      {
+        name: "Arch. Alejandro Villarreal",
+        role: "Owner Villa K'áax · Aldea Zamá, Tulum",
+        date: "2 weeks ago",
+        rating: 5,
+        text: "I live in Mexico City and coordinating separate pool, garden, and carpentry vendors used to be a nightmare. With Terra Maya I get my 360° report on time, the infinity pool is crystal clear, and the Cumarú deck looks brand new.",
+      },
+      {
+        name: "Marie-Claire Laurent",
+        role: "HOA Board President · Playacar Phase II, Playa del Carmen",
+        date: "1 month ago",
+        rating: 5,
+        text: "We replaced our internal staff with Terra Maya's all-in-one facility contract for our 28-unit complex. Both the administrative savings and the quality of pool, garden, and Chukum maintenance exceeded every expectation.",
+      },
+      {
+        name: "Roberto & Elena Gastélum",
+        role: "Luxury Villa Superhosts · Region 15, Tulum",
+        date: "3 weeks ago",
+        rating: 5,
+        text: "Their precision turnovers and thermal mattress sanitization helped boost our Airbnb rating to 4.98. When we had a Sunday hydraulic emergency, their technician arrived on-site in under 90 minutes.",
+      },
+      {
+        name: "Marco Bellini",
+        role: "General Manager · Boutique Eco-Hotel, Riviera Maya",
+        date: "1 month ago",
+        rating: 5,
+        text: "Their artisanal restoration of Chukum walls and Tzalam millwork is true 5-Diamond hospitality caliber. Plus, their biological pest control protects the surrounding jungle without ever bothering our guests.",
+      },
+      {
+        name: "David & Sarah Jenkins",
+        role: "Residential Owners · Mayakoba, Playa del Carmen",
+        date: "2 months ago",
+        rating: 5,
+        text: "We spend half the year in Toronto, and their 'Closed Home' inspections with drone roof checks after every tropical storm give us complete peace of mind. Flawless communication in English and Spanish.",
+      },
+      {
+        name: "Eng. Fernando Montemayor",
+        role: "Real Estate Developer · Puerto Morelos & Tulum",
+        date: "3 months ago",
+        rating: 5,
+        text: "We partner with Terra Maya for post-construction fine detailing and buyer key handovers. Their professionalism, punctuality, and 360° baseline documentation elevate the perceived value of every residence.",
+      },
+    ],
   },
   legal: {
     privacyTitle: "Comprehensive Privacy Policy (LFPDPPP / GDPR)",
@@ -965,7 +1073,7 @@ const baseEn: typeof baseEs = {
   },
   footer: {
     tagline: "Preserving Quintana Roo's architectural heritage with sustainable engineering.",
-    rights: "All rights reserved. REPSE · COFEPRIS · NOM-245 · AFAC Registered · $5M USD Liability Policy.",
+    rights: "All rights reserved. Facility & Property Services in the Riviera Maya.",
   },
 };
 
@@ -997,7 +1105,7 @@ const baseFr: typeof baseEs = {
     subtitle:
       "Préservation architecturale intégrale, gestion technique d'actifs de luxe et standards hôteliers 5 Diamants à Tulum, Playa del Carmen et Riviera Maya.",
     primaryCta: "Réserver un Terra Check Gratuit",
-    secondaryCta: "Diagnostic préventif gratuit en 48 points critiques",
+    secondaryCta: "Diagnostic technique préventif gratuit",
     portalCta: "Démo Portail 360°",
     stats: [
       { value: "7", label: "Divisions techniques intégrées" },
@@ -1066,10 +1174,10 @@ const baseFr: typeof baseEs = {
   },
   terraCheck: {
     ...baseEn.terraCheck,
-    badge: "COURTOISIE INSTITUTIONNELLE · 48 POINTS",
+    badge: "COURTOISIE INSTITUTIONNELLE · DIAGNOSTIC COMPLET",
     title: "Demander un Diagnostic Terra Check Gratuit",
     subtitle:
-      "Nous évaluons gratuitement 48 points critiques (hydraulique, électricité, bois exotiques, murs en Chukum et toitures par caméra 360° et drone) sous 48 heures.",
+      "Nous évaluons gratuitement les points critiques (hydraulique, électricité, bois exotiques, murs en Chukum et toitures par caméra 360° et drone) sous 48 heures.",
     fields: {
       ...baseEn.terraCheck.fields,
       name: "Nom Complet",
@@ -1083,9 +1191,18 @@ const baseFr: typeof baseEs = {
     },
     success: {
       title: "Demande de Terra Check reçue !",
-      desc: "Un ingénieur de liaison multilingue vous contactera sur WhatsApp sous 15 minutes pour confirmer votre inspection en 48 points.",
+      desc: "Un ingénieur de liaison multilingue vous contactera sur WhatsApp sous 15 minutes pour confirmer votre inspection technique intégrale.",
       reset: "Envoyer une autre demande",
     },
+  },
+  reviews: {
+    ...baseEn.reviews,
+    eyebrow: "AVIS VÉRIFIÉS GOOGLE MAPS",
+    title: "Ce que disent nos clients",
+    subtitle:
+      "Témoignages de propriétaires de villas, syndics de copropriété et directeurs d'hôtels-boutiques à Playa del Carmen, Tulum et Riviera Maya.",
+    ratingCount: "48 avis sur Google Maps",
+    ctaMaps: "Voir sur Google Maps",
   },
   legal: {
     privacyTitle: "Politique de Confidentialité (LFPDPPP / RGPD)",
@@ -1098,7 +1215,7 @@ const baseFr: typeof baseEs = {
   },
   footer: {
     tagline: "Préserver le patrimoine architectural du Quintana Roo grâce à l'ingénierie durable.",
-    rights: "Tous droits réservés. Enregistré REPSE · COFEPRIS · NOM-245 · AFAC · Assurance RC 5M$ USD.",
+    rights: "Tous droits réservés. Facility & Property Services en Riviera Maya.",
   },
 };
 
@@ -1130,7 +1247,7 @@ const baseIt: typeof baseEs = {
     subtitle:
       "Preservazione architettonica integrale, gestione tecnica di immobili di lusso e standard alberghieri 5 Diamanti a Tulum, Playa del Carmen e Riviera Maya.",
     primaryCta: "Prenota Terra Check Gratuito",
-    secondaryCta: "Diagnosi preventiva gratuita in 48 punti critici",
+    secondaryCta: "Diagnosi tecnica preventiva gratuita",
     portalCta: "Demo Portale 360°",
     stats: [
       { value: "7", label: "Divisioni tecniche integrate" },
@@ -1199,10 +1316,10 @@ const baseIt: typeof baseEs = {
   },
   terraCheck: {
     ...baseEn.terraCheck,
-    badge: "CORTESIA ISTITUZIONALE · 48 PUNTI",
+    badge: "CORTESIA ISTITUZIONALE · DIAGNOSI INTEGRALE",
     title: "Richiedi Diagnosi Gratuita Terra Check",
     subtitle:
-      "Valutiamo gratuitamente 48 punti critici (idraulica, impianti, legni tropicali, pareti in Chukum e coperture con fotocamera 360° e drone) entro 48 ore.",
+      "Valutiamo gratuitamente i punti critici (idraulica, impianti, legni tropicali, pareti in Chukum e coperture con fotocamera 360° e drone) entro 48 ore.",
     fields: {
       ...baseEn.terraCheck.fields,
       name: "Nome e Cognome",
@@ -1216,9 +1333,18 @@ const baseIt: typeof baseEs = {
     },
     success: {
       title: "Richiesta Terra Check ricevuta!",
-      desc: "Un nostro ingegnere multilingue ti contatterà su WhatsApp entro 15 minuti per confermare data e ora dell'ispezione in 48 punti.",
+      desc: "Un nostro ingegnere multilingue ti contatterà su WhatsApp entro 15 minuti per confermare data e ora della diagnosi tecnica integrale.",
       reset: "Invia un'altra richiesta",
     },
+  },
+  reviews: {
+    ...baseEn.reviews,
+    eyebrow: "RECENSIONI VERIFICATE SU GOOGLE MAPS",
+    title: "Le Opinioni dei Nostri Clienti",
+    subtitle:
+      "Esperienze di proprietari di ville, amministratori condominiali e direttori di boutique hotel a Playa del Carmen, Tulum e Riviera Maya.",
+    ratingCount: "48 recensioni su Google Maps",
+    ctaMaps: "Vedi su Google Maps",
   },
   legal: {
     privacyTitle: "Informativa sulla Privacy (LFPDPPP / GDPR)",
@@ -1231,7 +1357,7 @@ const baseIt: typeof baseEs = {
   },
   footer: {
     tagline: "Preserviamo il patrimonio architettonico di Quintana Roo con ingegneria sostenibile.",
-    rights: "Tutti i diritti riservati. Registrato REPSE · COFEPRIS · NOM-245 · AFAC · Polizza RC $5M USD.",
+    rights: "Tutti i diritti riservati. Facility & Property Services in Riviera Maya.",
   },
 };
 

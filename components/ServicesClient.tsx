@@ -70,74 +70,60 @@ export default function ServicesClient({
           {
             subBrand: "Terra Agua",
             service: "Mantenimiento alberca residencial ≤40 m³ (1 visita/sem + químicos)",
-            rate: "$1,600 – $1,900 MXN / mes",
           },
           {
             subBrand: "Terra Agua",
             service: "Alberca en renta vacacional (3 visitas/sem + revisión post check-out)",
-            rate: "$3,800 – $4,500 MXN / mes",
           },
           {
             subBrand: "Terra Verde",
             service: "Jardinería residencial visita semanal / Poda de palma con retiro de coco",
-            rate: "$2,200 – $3,200 / mes · $450–$900 / palma",
           },
           {
             subBrand: "Terra Clean",
-            service: "Turnover renta vacacional (2 · 3 · 4 recámaras) con checklist 40 pts",
-            rate: "$800 · $1,200 · $1,700 MXN",
+            service: "Turnover renta vacacional (2 · 3 · 4 recámaras) con protocolo hotelero",
           },
           {
             subBrand: "Terra Textil",
             service: "Lavado inyección-succión de colchón (Individual a King) / Sala 3 plazas",
-            rate: "$450 – $750 MXN · Sala $850 MXN",
           },
           {
             subBrand: "Terra Shield",
             service: "Fumigación mensual con certificado COFEPRIS / Nebulización dengue",
-            rate: "$650–$900 res. · $1,800–$3,500 com.",
           },
           {
             subBrand: "Terra Build",
-            service: "Sellado de maderas tropicales (decks/pérgolas) / Hora técnico general",
-            rate: "$220 – $380 MXN/m² · $350 MXN/h",
+            service: "Sellado de maderas tropicales (decks/pérgolas) / Técnico especialista",
           },
         ]
       : [
           {
             subBrand: "Terra Agua",
             service: "Residential pool care ≤40 m³ (1 visit/wk + chemicals included)",
-            rate: "$1,600 – $1,900 MXN / mo",
           },
           {
             subBrand: "Terra Agua",
-            service: "Vacation rental pool (3 visits/wk + post-checkout check)",
-            rate: "$3,800 – $4,500 MXN / mo",
+            service: "Vacation rental pool (3 visits/wk + post-checkout inspection)",
           },
           {
             subBrand: "Terra Verde",
             service: "Weekly residential garden care / Palm tree pruning + coconut removal",
-            rate: "$2,200 – $3,200 / mo · $450–$900 / palm",
           },
           {
             subBrand: "Terra Clean",
-            service: "Vacation rental turnover (2 · 3 · 4 BR) with 40-pt hospitality checklist",
-            rate: "$800 · $1,200 · $1,700 MXN",
+            service: "Vacation rental turnover (2 · 3 · 4 BR) with hospitality checklist",
           },
           {
             subBrand: "Terra Textil",
             service: "Deep extraction mattress wash (Twin to King) / 3-seat Sofa",
-            rate: "$450 – $750 MXN · Sofa $850 MXN",
           },
           {
             subBrand: "Terra Shield",
             service: "Monthly COFEPRIS certified pest control / Outdoor mosquito fogging",
-            rate: "$650–$900 res. · $1,800–$3,500 comm.",
           },
           {
             subBrand: "Terra Build",
-            service: "Tropical wood deck & pergola UV sealing / General technician hour",
-            rate: "$220 – $380 MXN/m² · $350 MXN/hr",
+            service: "Tropical wood deck & pergola UV sealing / Specialist technician",
           },
         ];
 
@@ -321,18 +307,18 @@ export default function ServicesClient({
         })}
       </section>
 
-      {/* Reference Rate Card Table */}
+      {/* Standalone Services Scope Table */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10">
         <div className="rounded-3xl bg-white border border-brand-green/15 shadow-card overflow-hidden">
           <div className="bg-brand-green text-brand-sand p-6 sm:p-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
               <span className="text-xs font-bold uppercase tracking-widest text-brand-terracotta-light">
-                {lang === "es" ? "TARIFARIO DE REFERENCIA 2026" : "2026 REFERENCE RATE CARD"}
+                {lang === "es" ? "MODALIDADES DE ATENCIÓN PUNTUAL" : "STANDALONE & ON-DEMAND SERVICES"}
               </span>
               <h3 className="font-serif text-2xl font-bold text-white mt-1">
                 {lang === "es"
-                  ? "Precios sugeridos por servicio individual o evento"
-                  : "Suggested pricing for standalone services & events"}
+                  ? "Servicios individuales o por evento bajo cotización"
+                  : "Standalone services & events upon tailored quotation"}
               </h3>
             </div>
             <Link
@@ -354,10 +340,10 @@ export default function ServicesClient({
                 <tr className="bg-brand-sand/50 text-brand-green text-xs uppercase tracking-wider">
                   <th className="py-3.5 px-6 font-bold">Sub-Marca</th>
                   <th className="py-3.5 px-6 font-bold">
-                    {lang === "es" ? "Concepto / Alcance" : "Service / Scope"}
+                    {lang === "es" ? "Concepto / Alcance Operativo" : "Service / Operational Scope"}
                   </th>
                   <th className="py-3.5 px-6 font-bold text-right">
-                    {lang === "es" ? "Tarifa de Referencia (MXN + IVA)" : "Reference Rate (MXN + VAT)"}
+                    {lang === "es" ? "Atención Personalizada" : "Custom Quote"}
                   </th>
                 </tr>
               </thead>
@@ -368,8 +354,19 @@ export default function ServicesClient({
                       {row.subBrand}
                     </td>
                     <td className="py-4 px-6 text-brand-green/80">{row.service}</td>
-                    <td className="py-4 px-6 font-semibold text-brand-terracotta text-right whitespace-nowrap">
-                      {row.rate}
+                    <td className="py-4 px-6 text-right whitespace-nowrap">
+                      <button
+                        type="button"
+                        onClick={() =>
+                          openTerraCheck({
+                            notes: `${row.subBrand} — ${row.service}`,
+                          })
+                        }
+                        className="inline-flex items-center gap-1.5 rounded-lg bg-brand-terracotta/10 hover:bg-brand-terracotta text-brand-terracotta hover:text-white font-bold px-3.5 py-1.5 text-xs transition"
+                      >
+                        <span>{lang === "es" ? "Solicitar cotización" : "Request quote"}</span>
+                        <ArrowRight className="w-3.5 h-3.5" />
+                      </button>
                     </td>
                   </tr>
                 ))}

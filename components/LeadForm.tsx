@@ -140,7 +140,7 @@ export default function LeadForm({
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 rounded-xl bg-brand-terracotta hover:bg-brand-terracotta-dark text-white font-semibold px-5 py-2.5 text-sm transition shadow-md"
           >
-            <span>WhatsApp ({CONTACT_INFO.phoneDisplay})</span>
+            <span>WhatsApp 24/7</span>
             <ArrowRight className="w-4 h-4" />
           </a>
           <button
