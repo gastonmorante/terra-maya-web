@@ -72,7 +72,7 @@ export default function HomeClient({ lang, dict }: { lang: Locale; dict: any }) 
     <div className="flex flex-col w-full font-body-md text-on-surface">
       {/* 1. HERO SECTION (Native Mobile + Full-Width PC/Tablet) */}
       <section className="relative w-full overflow-hidden bg-primary-container text-on-primary">
-        <div className="relative min-h-[500px] sm:min-h-[540px] lg:min-h-[620px] w-full flex flex-col justify-between">
+        <div className="relative min-h-[500px] sm:min-h-[540px] lg:min-h-[620px] w-full flex flex-col justify-end">
           <img
             alt="Villa contemporánea en la selva caribeña - Terra Maya"
             className="absolute inset-0 w-full h-full object-cover object-center"
@@ -80,53 +80,9 @@ export default function HomeClient({ lang, dict }: { lang: Locale; dict: any }) 
           />
           <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/65 to-primary/20" />
 
-          {/* Top Floating Monitoring Pill */}
-          <div className="relative z-10 max-w-7xl mx-auto w-full px-4 sm:px-6 pt-5 flex items-center justify-between gap-2">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-surface-container-lowest/95 backdrop-blur-md shadow-md">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-surface-tint opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-surface-tint"></span>
-              </span>
-              <span className="font-label-sm text-label-sm text-primary uppercase tracking-wider font-semibold">
-                {dict.hero.monitoring}
-              </span>
-            </div>
-
-            <Link
-              href={`/${lang}/portal`}
-              className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-primary/75 backdrop-blur-md text-on-primary font-label-sm text-label-sm border border-white/15 hover:bg-primary transition"
-            >
-              <span className="material-symbols-outlined text-[15px] text-primary-fixed">
-                sensors
-              </span>
-              <span>{dict.hero.liveLink}</span>
-            </Link>
-          </div>
-
           {/* Hero Bottom Copy & CTAs */}
           <div className="relative z-10 max-w-7xl mx-auto w-full p-5 sm:p-8 lg:pb-14 flex flex-col lg:flex-row lg:items-end justify-between gap-8">
             <div className="max-w-2xl flex flex-col gap-3.5">
-              <div className="flex items-center gap-2 flex-wrap">
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container-highest/30 backdrop-blur-md text-on-primary font-label-sm text-label-sm">
-                  <span className="material-symbols-outlined text-[14px]">
-                    shield
-                  </span>
-                  {dict.hero.pillVillas}
-                </span>
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container-highest/30 backdrop-blur-md text-on-primary font-label-sm text-label-sm">
-                  <span className="material-symbols-outlined text-[14px]">
-                    timer
-                  </span>
-                  {dict.hero.pillSla}
-                </span>
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container-highest/30 backdrop-blur-md text-on-primary font-label-sm text-label-sm">
-                  <span className="material-symbols-outlined text-[14px]">
-                    verified
-                  </span>
-                  100% REPSE · IMSS
-                </span>
-              </div>
-
               <h1 className="font-headline-lg-mobile sm:text-4xl lg:text-5xl font-semibold text-surface-bright tracking-tight leading-tight">
                 {dict.hero.title}
               </h1>
