@@ -19,7 +19,7 @@ const baseEs = {
   meta: {
     title: "Terra Maya | Facility & Property Services en Tulum y Riviera Maya",
     description:
-      "La ingeniería silenciosa detrás de las mejores residencias del Caribe. Mantenimiento integral 360°, albercas, jardinería, limpieza, textiles, fumigación COFEPRIS y obra menor en Tulum, Playa del Carmen y Puerto Morelos.",
+      "El cuidado que mantiene tu propiedad extraordinaria. Mantenimiento integral, operación técnica y conservación de propiedades de alto nivel en la Riviera Maya (Residencial, Hotelero y Comercial en Tulum y Playa del Carmen).",
     keywords:
       "facility management Tulum, mantenimiento de propiedades Riviera Maya, mantenimiento de albercas Tulum, administración de villas Tulum, fumigación COFEPRIS Tulum, Chukum Tulum, carpintería maderas tropicales Playa del Carmen, REPSE Quintana Roo",
   },
@@ -33,14 +33,16 @@ const baseEs = {
     switchLang: "EN",
   },
   hero: {
-    badge: "TULUM · PLAYA DEL CARMEN · PUERTO MORELOS",
+    badge: "TULUM · PLAYA DEL CARMEN · RIVIERA MAYA",
     monitoring: "Vigilancia Activa Riviera Maya 24/7",
     liveLink: "Ver Telemetría Villa K'áax en Vivo →",
     pillVillas: "+180 Villas Custodiadas",
     pillSla: "SLA Respuesta < 2h",
-    title: "La ingeniería silenciosa detrás de las mejores residencias del Caribe",
+    title: "El cuidado que mantiene tu propiedad extraordinaria",
     subtitle:
-      "Preservación arquitectónica integral, gestión técnica de activos de lujo y hotelería de alto nivel en Tulum, Playa del Carmen y Riviera Maya.",
+      "Mantenimiento integral, operación técnica y conservación de propiedades de alto nivel en la Riviera Maya.",
+    segmentsLine: "Residencial · Hotelero · Comercial",
+    locationsLine: "Tulum · Playa del Carmen · Riviera Maya",
     primaryCta: "Agendar Terra Check Gratuito",
     secondaryCta: "Diagnóstico técnico integral sin costo",
     portalCta: "Ver Demo App 360°",
@@ -550,7 +552,7 @@ const baseEn: typeof baseEs = {
   meta: {
     title: "Terra Maya | Luxury Facility & Property Management in Tulum & Riviera Maya",
     description:
-      "The silent engineering behind the Caribbean's finest residences. Comprehensive architectural preservation, infinity pools, Mayan landscaping, Chukum restoration, and 360°/drone reporting in Tulum & Riviera Maya.",
+      "The care that keeps your property extraordinary. Comprehensive maintenance, technical operations, and preservation of high-end properties in the Riviera Maya (Residential, Hospitality & Commercial).",
     keywords:
       "property management Tulum, luxury villa maintenance Riviera Maya, pool maintenance Tulum, absentee homeowner care Mexico, Chukum restoration, tropical wood deck care, HOA facility management Playa del Carmen",
   },
@@ -564,14 +566,16 @@ const baseEn: typeof baseEs = {
     switchLang: "FR",
   },
   hero: {
-    badge: "TULUM · PLAYA DEL CARMEN · PUERTO MORELOS",
+    badge: "TULUM · PLAYA DEL CARMEN · RIVIERA MAYA",
     monitoring: "Active Riviera Maya Monitoring 24/7",
     liveLink: "View Live Villa K'áax Telemetry →",
     pillVillas: "+180 Villas Under Care",
     pillSla: "SLA Response < 2h",
-    title: "The silent engineering behind the Caribbean's finest residences",
+    title: "The care that keeps your property extraordinary",
     subtitle:
-      "Comprehensive architectural preservation, technical management of luxury estates, and five-diamond hospitality care in Tulum, Playa del Carmen, and the Riviera Maya.",
+      "Comprehensive maintenance, technical operations, and preservation of high-end properties in the Riviera Maya.",
+    segmentsLine: "Residential · Hospitality · Commercial",
+    locationsLine: "Tulum · Playa del Carmen · Riviera Maya",
     primaryCta: "Book Free Terra Check",
     secondaryCta: "Complimentary comprehensive technical diagnostic",
     portalCta: "Live 360° App Demo",
@@ -1082,7 +1086,7 @@ const baseFr: typeof baseEs = {
   meta: {
     title: "Terra Maya | Gestion Immobilière & Maintenance de Luxe à Tulum et Riviera Maya",
     description:
-      "L'ingénierie silencieuse derrière les plus belles résidences des Caraïbes. Préservation architecturale, piscines à débordement, jardins mayas, Chukum et rapports 360°/drone à Tulum et Playa del Carmen.",
+      "Le soin qui garde votre propriété extraordinaire. Maintenance intégrale, exploitation technique et préservation de propriétés haut de gamme sur la Riviera Maya.",
     keywords:
       "gestion immobilière Tulum, maintenance villa de luxe Riviera Maya, entretien piscine Tulum, conciergerie technique Mexique, restauration Chukum, bois exotique Tzalam, syndic copropriété Playa del Carmen",
   },
@@ -1096,14 +1100,16 @@ const baseFr: typeof baseEs = {
     switchLang: "IT",
   },
   hero: {
-    badge: "TULUM · PLAYA DEL CARMEN · PUERTO MORELOS",
+    badge: "TULUM · PLAYA DEL CARMEN · RIVIERA MAYA",
     monitoring: "Surveillance Active Riviera Maya 24/7",
     liveLink: "Voir Télémétrie Villa K'áax en Direct →",
     pillVillas: "+180 Villas sous Garde",
     pillSla: "SLA Réponse < 2h",
-    title: "L'ingénierie silencieuse derrière les plus belles résidences des Caraïbes",
+    title: "Le soin qui garde votre propriété extraordinaire",
     subtitle:
-      "Préservation architecturale intégrale, gestion technique d'actifs de luxe et standards hôteliers 5 Diamants à Tulum, Playa del Carmen et Riviera Maya.",
+      "Maintenance intégrale, exploitation technique et préservation de propriétés haut de gamme sur la Riviera Maya.",
+    segmentsLine: "Résidentiel · Hôtellerie · Commercial",
+    locationsLine: "Tulum · Playa del Carmen · Riviera Maya",
     primaryCta: "Réserver un Terra Check Gratuit",
     secondaryCta: "Diagnostic technique préventif gratuit",
     portalCta: "Démo Portail 360°",
@@ -1224,7 +1230,7 @@ const baseIt: typeof baseEs = {
   meta: {
     title: "Terra Maya | Property & Facility Management di Lusso a Tulum e Riviera Maya",
     description:
-      "L'ingegneria silenziosa dietro le più prestigiose residenze dei Caraibi. Manutenzione integrale 360°, piscine infinity, giardini maya, restauro Chukum e ispezioni drone a Tulum e Playa del Carmen.",
+      "La cura che mantiene straordinaria la tua proprietà. Manutenzione integrale, gestione tecnica e conservazione di proprietà di alto livello nella Riviera Maya.",
     keywords:
       "property management Tulum, manutenzione ville di lusso Riviera Maya, manutenzione piscine Tulum, gestione immobiliare Messico, restauro Chukum, legno tropicale Tzalam, amministrazione condomini Playa del Carmen",
   },
@@ -1238,14 +1244,16 @@ const baseIt: typeof baseEs = {
     switchLang: "ES",
   },
   hero: {
-    badge: "TULUM · PLAYA DEL CARMEN · PUERTO MORELOS",
+    badge: "TULUM · PLAYA DEL CARMEN · RIVIERA MAYA",
     monitoring: "Monitoraggio Attivo Riviera Maya 24/7",
     liveLink: "Vedi Telemetria Villa K'áax in Diretta →",
     pillVillas: "+180 Ville Custodite",
     pillSla: "SLA Risposta < 2h",
-    title: "L'ingegneria silenziosa dietro le migliori residenze dei Caraibi",
+    title: "La cura che mantiene straordinaria la tua proprietà",
     subtitle:
-      "Preservazione architettonica integrale, gestione tecnica di immobili di lusso e standard alberghieri 5 Diamanti a Tulum, Playa del Carmen e Riviera Maya.",
+      "Manutenzione integrale, gestione tecnica e conservazione di proprietà di alto livello nella Riviera Maya.",
+    segmentsLine: "Residenziale · Alberghiero · Commerciale",
+    locationsLine: "Tulum · Playa del Carmen · Riviera Maya",
     primaryCta: "Prenota Terra Check Gratuito",
     secondaryCta: "Diagnosi tecnica preventiva gratuita",
     portalCta: "Demo Portale 360°",

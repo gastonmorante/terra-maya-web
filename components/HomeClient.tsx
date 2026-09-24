@@ -117,6 +117,15 @@ export default function HomeClient({ lang, dict }: { lang: Locale; dict: any }) 
               <p className="font-body-md sm:text-base text-surface-variant font-light leading-relaxed">
                 {dict.hero.subtitle}
               </p>
+
+              <div className="pt-1 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
+                <span className="inline-flex items-center px-3 py-1 rounded-full bg-white/15 backdrop-blur-md border border-white/20 font-label-sm text-xs font-semibold tracking-wider text-surface-bright">
+                  {dict.hero.segmentsLine}
+                </span>
+                <span className="inline-flex items-center px-3 py-1 rounded-full bg-brand-terracotta/25 backdrop-blur-md border border-brand-terracotta-light/40 font-label-sm text-xs font-semibold tracking-wider text-[#FFDAD2]">
+                  {dict.hero.locationsLine}
+                </span>
+              </div>
             </div>
 
             <div className="w-full lg:w-80 flex flex-col gap-2.5 shrink-0">
@@ -150,7 +159,7 @@ export default function HomeClient({ lang, dict }: { lang: Locale; dict: any }) 
               {dict.audience.eyebrow}
             </span>
             <span className="font-label-sm text-label-sm text-surface-tint">
-              Tulum · Playa · Mayakoba
+              Tulum · Playa del Carmen · Riviera Maya
             </span>
           </div>
 

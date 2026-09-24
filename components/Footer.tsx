@@ -19,7 +19,7 @@ export default function Footer({ lang, dict }: { lang: Locale; dict: any }) {
               />
               <div>
                 <span className="block font-title-lg text-title-lg text-primary leading-none">
-                  Terra Maya Custodia &amp; Obra
+                  Terra Maya
                 </span>
                 <span className="block font-label-sm text-[10px] uppercase tracking-widest text-surface-tint mt-0.5">
                   Facility &amp; Property Services
