@@ -210,46 +210,56 @@ export default function ServicesClient({
               transition={{ duration: 0.4 }}
               className="scroll-mt-28 rounded-3xl bg-white border border-brand-green/15 shadow-card overflow-hidden grid grid-cols-1 lg:grid-cols-12"
             >
-              {/* Left Column: Brand Identity */}
-              <div className="lg:col-span-4 bg-brand-green text-brand-sand p-8 flex flex-col justify-between space-y-6">
-                <div className="space-y-4">
+              {/* Left Column: Brand Identity with Photorealistic Image & Readability Scrim */}
+              <div className="lg:col-span-5 bg-[#081C17] text-brand-sand p-8 flex flex-col justify-between space-y-6 relative overflow-hidden group">
+                <img
+                  src={`/images/services/${srv.id}.jpg`}
+                  alt={`${srv.brand} - ${srv.category}`}
+                  loading="lazy"
+                  className="absolute inset-0 w-full h-full object-cover object-center opacity-55 group-hover:opacity-65 group-hover:scale-105 transition-all duration-700 pointer-events-none"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#051410]/95 via-[#09211B]/82 to-[#061712]/70 pointer-events-none" />
+
+                <div className="space-y-4 relative z-10">
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-mono uppercase tracking-widest text-brand-terracotta-light">
-                      SUB-MARCA 0{idx + 1}
+                    <span className="text-xs font-mono uppercase tracking-widest text-[#F4A68E] font-bold bg-black/30 backdrop-blur-sm px-3 py-1 rounded-full border border-white/15">
+                      SUB-MARCA 0{idx + 1} · {srv.badge}
                     </span>
-                    <div className="w-11 h-11 rounded-xl bg-brand-terracotta text-white flex items-center justify-center">
+                    <div className="w-11 h-11 rounded-xl bg-brand-terracotta text-white flex items-center justify-center shadow-md">
                       <SrvIcon className="w-6 h-6" />
                     </div>
                   </div>
 
-                  <h2 className="font-serif text-3xl font-bold text-white">
+                  <h2 className="font-serif text-3xl font-bold text-white drop-shadow-sm">
                     {srv.brand}
                   </h2>
-                  <p className="text-sm font-semibold text-brand-terracotta-light">
+                  <p className="text-sm font-semibold text-[#F4A68E] drop-shadow-sm">
                     {srv.category}
                   </p>
-                  <p className="text-xs sm:text-sm text-brand-sand/80 leading-relaxed">
+                  <p className="text-xs sm:text-sm text-white/95 leading-relaxed drop-shadow-sm">
                     {srv.fullDesc}
                   </p>
                 </div>
 
-                <div className="space-y-3 pt-4 border-t border-white/15">
+                <div className="space-y-3 pt-4 border-t border-white/20 relative z-10">
                   <div className="flex flex-wrap gap-1.5">
                     {srv.verticals.map((v: string) => (
                       <span
                         key={v}
-                        className="rounded-lg bg-white/10 px-2.5 py-1 text-[11px] font-semibold text-brand-sand"
+                        className="rounded-lg bg-black/35 backdrop-blur-sm border border-white/15 px-2.5 py-1 text-[11px] font-semibold text-white"
                       >
                         {v}
                       </span>
                     ))}
                   </div>
-                  <p className="text-xs font-bold text-white">{srv.priceHint}</p>
+                  <p className="text-xs font-bold text-brand-sand drop-shadow-sm">
+                    {srv.priceHint}
+                  </p>
                 </div>
               </div>
 
               {/* Right Column: Scope, Evidence & Actions */}
-              <div className="lg:col-span-8 p-8 flex flex-col justify-between space-y-6">
+              <div className="lg:col-span-7 p-8 flex flex-col justify-between space-y-6">
                 <div className="space-y-4">
                   <h3 className="text-xs font-bold uppercase tracking-widest text-brand-green/60">
                     {lang === "es"

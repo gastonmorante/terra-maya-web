@@ -1,7 +1,7 @@
 "use client";
 
 import React, { createContext, useContext, useRef, useState, useEffect } from "react";
-import { X, CheckCircle, Camera, ShieldCheck, Clock } from "lucide-react";
+import { X, CheckCircle, Camera, ShieldCheck, Clock, MapPin } from "lucide-react";
 import LeadForm from "./LeadForm";
 import type { Locale } from "@/lib/i18n/dictionaries";
 
@@ -71,22 +71,59 @@ export function TerraCheckProvider({
     }
   }, []);
 
-  const inspectionPoints =
-    lang === "es"
-      ? [
-          "Química de agua, bombas y filtros (NOM-245)",
-          "Estado fitosanitario de selva, palmas y riego",
-          "Humedad, impermeabilización de techos y bajadas pluviales con Drone",
-          "Estado de maderas tropicales (decks, pérgolas) y barrera contra termitas",
-          "Línea base fotográfica y recorrido 360° de áreas críticas",
-        ]
-      : [
-          "Pool water chemistry, pumps & filtration (NOM-245)",
-          "Jungle health, palm canopy & automated irrigation audit",
-          "Roof waterproofing, humidity & storm drains via Aerial Drone",
-          "Tropical hardwood decks, pergolas & termite barrier inspection",
-          "Baseline 360° virtual walkthrough & photo documentation",
-        ];
+  const inspectionPointsMap: Record<Locale, string[]> = {
+    es: [
+      "Química de agua, bombas y filtros (NOM-245)",
+      "Estado fitosanitario de selva, palmas y riego",
+      "Humedad, impermeabilización de techos y bajadas con Drone",
+      "Maderas tropicales (decks, pérgolas) y barrera antitermitas",
+      "Línea base fotográfica y recorrido 360° de áreas críticas",
+    ],
+    en: [
+      "Pool water chemistry, pumps & filtration (NOM-245)",
+      "Jungle health, palm canopy & automated irrigation audit",
+      "Roof waterproofing, humidity & storm drains via Aerial Drone",
+      "Tropical hardwood decks, pergolas & termite barrier inspection",
+      "Baseline 360° virtual walkthrough & photo documentation",
+    ],
+    fr: [
+      "Chimie de l'eau, pompes et filtration (NOM-245)",
+      "Santé phytosanitaire de la jungle, palmiers et arrosage",
+      "Étanchéité des toitures et humidité par Drone aérien",
+      "Bois tropicaux (terrasses, pergolas) et barrière anti-termites",
+      "Visite virtuelle 360° de référence et rapport photographique",
+    ],
+    it: [
+      "Chimica dell'acqua, pompe e filtrazione (NOM-245)",
+      "Stato fitosanitario della giungla, palme e irrigazione",
+      "Impermeabilizzazione tetti e umidità tramite Drone aereo",
+      "Legni tropicali (deck, pergole) e barriera antitermiti",
+      "Tour virtuale 360° di riferimento e report fotografico",
+    ],
+  };
+
+  const checklistHeaderMap: Record<Locale, string> = {
+    es: "¿Qué revisamos en tu Terra Check?",
+    en: "What's included in your Terra Check?",
+    fr: "Que vérifions-nous lors du Terra Check ?",
+    it: "Cosa controlliamo nel tuo Terra Check?",
+  };
+
+  const directDispatchMap: Record<Locale, string> = {
+    es: "Atención Directa · Playa · Tulum · Puerto Morelos",
+    en: "Direct Dispatch · Playa · Tulum · Puerto Morelos",
+    fr: "Assistance Directe · Playa · Tulum · Puerto Morelos",
+    it: "Assistenza Diretta · Playa · Tulum · Puerto Morelos",
+  };
+
+  const reportTimeMap: Record<Locale, string> = {
+    es: "Reporte en 48 h",
+    en: "Report in 48 hrs",
+    fr: "Rapport sous 48 h",
+    it: "Report in 48 ore",
+  };
+
+  const inspectionPoints = inspectionPointsMap[lang] || inspectionPointsMap.es;
 
   return (
     <TerraCheckContext.Provider value={{ openTerraCheck, closeTerraCheck }}>
@@ -96,80 +133,104 @@ export function TerraCheckProvider({
         ref={dialogRef}
         closedby="any"
         aria-labelledby="terra-check-dialog-title"
-        className="w-full max-w-4xl rounded-3xl bg-[#F6F3EC] text-brand-green p-0 shadow-2xl border border-brand-green/15 backdrop:bg-brand-green-dark/70 backdrop:backdrop-blur-sm open:animate-in open:fade-in open:zoom-in-95 duration-200"
+        className="m-auto w-[95vw] max-w-4xl max-h-[92vh] overflow-y-auto rounded-3xl bg-[#F6F3EC] text-brand-green p-0 shadow-[0_28px_80px_-16px_rgba(1,38,31,0.65)] border border-white/25 backdrop:bg-[#011813]/75 backdrop:backdrop-blur-md open:animate-in open:fade-in open:zoom-in-95 duration-200"
       >
         <div className="grid grid-cols-1 lg:grid-cols-12 overflow-hidden rounded-3xl">
-          {/* Left Side: Value & 21-Point Checklist */}
-          <div className="lg:col-span-5 bg-brand-green text-brand-sand p-7 sm:p-8 flex flex-col justify-between relative overflow-hidden">
-            <div className="space-y-5 relative z-10">
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-terracotta px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-white">
+          {/* Left Side: Value & 48-Point Checklist with Photorealistic Background */}
+          <div className="lg:col-span-5 bg-brand-green text-brand-sand p-6 sm:p-8 flex flex-col justify-between relative overflow-hidden">
+            {/* Subtle photorealistic architectural image + luxury multi-stop scrim */}
+            <img
+              src="/images/services/terra-agua.jpg"
+              alt=""
+              aria-hidden="true"
+              className="absolute inset-0 w-full h-full object-cover object-center opacity-25 pointer-events-none"
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-[#0d2620]/90 via-[#1A3C34]/92 to-[#091b16]/98 pointer-events-none" />
+
+            <div className="space-y-4 relative z-10">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-terracotta px-3.5 py-1 text-[11px] font-bold uppercase tracking-wider text-white shadow-sm">
                 {dict.terraCheck.badge}
               </span>
               <h2
                 id="terra-check-dialog-title"
-                className="font-serif text-2xl sm:text-3xl font-bold text-white leading-tight"
+                className="font-serif text-2xl sm:text-[28px] font-bold text-white leading-tight tracking-tight"
               >
                 {dict.terraCheck.title}
               </h2>
-              <p className="text-xs sm:text-sm text-brand-sand/85 leading-relaxed">
+              <p className="text-xs sm:text-[13px] text-brand-sand/90 leading-relaxed">
                 {dict.terraCheck.subtitle}
               </p>
 
-              <div className="pt-2 space-y-2.5 border-t border-white/15">
-                <p className="text-xs font-bold uppercase tracking-wider text-brand-terracotta-light">
-                  {lang === "es"
-                    ? "¿Qué revisamos en tu Terra Check?"
-                    : "What's included in your Terra Check?"}
+              <div className="pt-3 space-y-2 border-t border-white/15">
+                <p className="text-[11px] font-bold uppercase tracking-widest text-brand-terracotta-light pb-1">
+                  {checklistHeaderMap[lang] || checklistHeaderMap.es}
                 </p>
-                {inspectionPoints.map((pt, idx) => (
-                  <div key={idx} className="flex items-start gap-2.5 text-xs text-brand-sand/90">
-                    <CheckCircle className="w-4 h-4 text-brand-terracotta shrink-0 mt-0.5" />
-                    <span>{pt}</span>
-                  </div>
-                ))}
+                <div className="space-y-2">
+                  {inspectionPoints.map((pt, idx) => (
+                    <div
+                      key={idx}
+                      className="flex items-start gap-2.5 text-xs text-white/95 bg-white/[0.06] backdrop-blur-sm border border-white/10 rounded-xl px-3 py-2"
+                    >
+                      <CheckCircle className="w-4 h-4 text-brand-terracotta shrink-0 mt-0.5" />
+                      <span className="leading-snug">{pt}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
 
-            <div className="mt-8 pt-4 border-t border-white/15 grid grid-cols-2 gap-3 text-xs relative z-10">
-              <div className="flex items-center gap-2">
-                <Camera className="w-4 h-4 text-brand-terracotta shrink-0" />
-                <span>360° + Drone AFAC</span>
+            <div className="mt-5 pt-4 border-t border-white/15 space-y-2.5 relative z-10">
+              <div className="grid grid-cols-2 gap-2.5 text-xs">
+                <div className="flex items-center gap-2 bg-white/[0.07] rounded-xl px-3 py-2 border border-white/10">
+                  <Camera className="w-4 h-4 text-brand-terracotta shrink-0" />
+                  <span className="font-medium text-white">360° + Drone AFAC</span>
+                </div>
+                <div className="flex items-center gap-2 bg-white/[0.07] rounded-xl px-3 py-2 border border-white/10">
+                  <Clock className="w-4 h-4 text-brand-terracotta shrink-0" />
+                  <span className="font-medium text-white">
+                    {reportTimeMap[lang] || reportTimeMap.es}
+                  </span>
+                </div>
               </div>
-              <div className="flex items-center gap-2">
-                <Clock className="w-4 h-4 text-brand-terracotta shrink-0" />
-                <span>{lang === "es" ? "Reporte en 48 h" : "Report in 48 hrs"}</span>
+              <div className="flex items-center gap-2 text-[11px] text-brand-sand/75 px-1">
+                <MapPin className="w-3.5 h-3.5 text-brand-terracotta shrink-0" />
+                <span className="truncate">
+                  Av. Colosio entre Av. 25 y 30, Col. Centro, Playa del Carmen
+                </span>
               </div>
             </div>
           </div>
 
           {/* Right Side: Lead Form */}
-          <div className="lg:col-span-7 p-6 sm:p-8 bg-[#F6F3EC] relative">
-            <div className="flex items-center justify-between mb-4">
-              <div className="flex items-center gap-2">
-                <ShieldCheck className="w-5 h-5 text-brand-terracotta" />
-                <span className="text-xs font-bold uppercase tracking-wider text-brand-green/70">
-                  {lang === "es"
-                    ? "Atención Directa · Tulum · Playa · Puerto Morelos"
-                    : "Direct Dispatch · Tulum · Playa · Puerto Morelos"}
-                </span>
+          <div className="lg:col-span-7 p-6 sm:p-8 bg-[#F6F3EC] flex flex-col justify-between relative">
+            <div>
+              <div className="flex items-center justify-between pb-4 mb-4 border-b border-brand-green/10">
+                <div className="flex items-center gap-2">
+                  <div className="w-7 h-7 rounded-lg bg-brand-terracotta/15 flex items-center justify-center text-brand-terracotta">
+                    <ShieldCheck className="w-4 h-4" />
+                  </div>
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-brand-green/80">
+                    {directDispatchMap[lang] || directDispatchMap.es}
+                  </span>
+                </div>
+                <button
+                  type="button"
+                  onClick={closeTerraCheck}
+                  aria-label={lang === "es" ? "Cerrar ventana" : "Close modal"}
+                  className="rounded-full p-2 text-brand-green/60 hover:bg-brand-sand hover:text-brand-green transition"
+                >
+                  <X className="w-5 h-5" />
+                </button>
               </div>
-              <button
-                type="button"
-                onClick={closeTerraCheck}
-                aria-label={lang === "es" ? "Cerrar ventana" : "Close modal"}
-                className="rounded-full p-2 text-brand-green/60 hover:bg-brand-sand hover:text-brand-green transition"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
 
-            <LeadForm
-              lang={lang}
-              dict={dict}
-              defaultNotes={prefill.notes}
-              defaultSegment={prefill.segment}
-              compact
-            />
+              <LeadForm
+                lang={lang}
+                dict={dict}
+                defaultNotes={prefill.notes}
+                defaultSegment={prefill.segment}
+                compact
+              />
+            </div>
           </div>
         </div>
       </dialog>

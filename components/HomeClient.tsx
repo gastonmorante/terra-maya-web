@@ -3,69 +3,96 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { CheckCircle, Camera, Clock, MapPin, ShieldCheck } from "lucide-react";
 import { useTerraCheck } from "./TerraCheckModal";
+import LeadForm from "./LeadForm";
 import { CONTACT_INFO, type Locale } from "@/lib/i18n/dictionaries";
 
-const divisionIcons: Record<string, { icon: string; color: string; badgeClass: string }> = {
+const divisionIcons: Record<
+  string,
+  { icon: string; color: string; badgeClass: string; image: string }
+> = {
   "terra-agua": {
     icon: "water_lux",
     color: "text-surface-tint",
     badgeClass: "bg-surface-container-low text-surface-tint",
+    image: "/images/services/terra-agua.jpg",
   },
   "terra-verde": {
     icon: "potted_plant",
     color: "text-primary-container",
     badgeClass: "bg-secondary-container text-on-secondary-container",
+    image: "/images/services/terra-verde.jpg",
   },
   "terra-clean": {
     icon: "cleaning_services",
     color: "text-surface-tint",
     badgeClass: "bg-surface-container-low text-primary-container",
+    image: "/images/services/terra-clean.jpg",
   },
   "terra-textil": {
     icon: "iron",
     color: "text-tertiary",
     badgeClass: "bg-surface-container-low text-on-surface",
+    image: "/images/services/terra-textil.jpg",
   },
   "terra-shield": {
     icon: "verified_user",
     color: "text-surface-tint",
     badgeClass: "bg-tertiary-fixed text-on-tertiary-fixed",
+    image: "/images/services/terra-shield.jpg",
   },
   "terra-build-carpinteria": {
     icon: "carpenter",
     color: "text-primary",
     badgeClass: "bg-secondary-container text-on-secondary-container",
+    image: "/images/services/terra-build-carpinteria.jpg",
   },
   "terra-build-albanileria": {
     icon: "format_paint",
     color: "text-primary",
     badgeClass: "bg-secondary-container text-on-secondary-container",
+    image: "/images/services/terra-build-albanileria.jpg",
   },
 };
 
 export default function HomeClient({ lang, dict }: { lang: Locale; dict: any }) {
   const { openTerraCheck } = useTerraCheck();
   const [activeSegmentIdx, setActiveSegmentIdx] = useState<number>(0);
-  const [bookingSubmitted, setBookingSubmitted] = useState(false);
-  const [selectedDivisions, setSelectedDivisions] = useState<string[]>(["terra-agua"]);
-
-  const toggleDivision = (id: string) => {
-    setSelectedDivisions((prev) =>
-      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
-    );
-  };
 
   const segmentIcons = ["vpn_key", "domain", "hotel", "architecture"];
   const segmentDetailIcons = ["lock_reset", "apartment", "hotel_class", "verified"];
   const activeSegment = dict.audience.segments[activeSegmentIdx] || dict.audience.segments[0];
 
-  const handleInlineBookingSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setBookingSubmitted(true);
-    setTimeout(() => {
-      setBookingSubmitted(false);
-    }, 6000);
+  const inspectionPointsMap: Record<Locale, string[]> = {
+    es: [
+      "Química de agua, bombas y filtros (NOM-245)",
+      "Estado fitosanitario de selva, palmas y riego",
+      "Humedad, impermeabilización de techos y bajadas con Drone",
+      "Maderas tropicales (decks, pérgolas) y barrera antitermitas",
+      "Línea base fotográfica y recorrido 360° de áreas críticas",
+    ],
+    en: [
+      "Pool water chemistry, pumps & filtration (NOM-245)",
+      "Jungle health, palm canopy & automated irrigation audit",
+      "Roof waterproofing, humidity & storm drains via Aerial Drone",
+      "Tropical hardwood decks, pergolas & termite barrier inspection",
+      "Baseline 360° virtual walkthrough & photo documentation",
+    ],
+    fr: [
+      "Chimie de l'eau, pompes et filtration (NOM-245)",
+      "Santé phytosanitaire de la jungle, palmiers et arrosage",
+      "Étanchéité des toitures et humidité par Drone aérien",
+      "Bois tropicaux (terrasses, pergolas) et barrière anti-termites",
+      "Visite virtuelle 360° de référence et rapport photographique",
+    ],
+    it: [
+      "Chimica dell'acqua, pompe e filtrazione (NOM-245)",
+      "Stato fitosanitario della giungla, palme e irrigazione",
+      "Impermeabilizzazione tetti e umidità tramite Drone aereo",
+      "Legni tropicali (deck, pergole) e barriera antitermiti",
+      "Tour virtuale 360° di riferimento e report fotografico",
+    ],
   };
 
   return (
@@ -115,48 +142,61 @@ export default function HomeClient({ lang, dict }: { lang: Locale; dict: any }) 
         </div>
       </section>
 
-      {/* MAIN CONTENT CONTAINER (Responsive Mobile + Tablet + Desktop) */}
       <div className="max-w-7xl mx-auto w-full">
-        {/* 2. SEGMENT SELECTOR TABS */}
-        <section className="w-full px-4 sm:px-6 pt-6 pb-2">
-          <div className="bg-surface-container-low p-1.5 rounded-2xl grid grid-cols-2 sm:grid-cols-4 gap-1 shadow-sm">
-            {dict.audience.segments.map((seg: any, idx: number) => {
-              const isActive = activeSegmentIdx === idx;
+        {/* 2. SEGMENT SELECTOR CHIPS (Horizontal Scroll on Mobile, Grid on PC) */}
+        <section className="w-full pt-6 pb-2 px-4 sm:px-6">
+          <div className="flex items-center justify-between mb-2.5">
+            <span className="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">
+              {dict.audience.eyebrow}
+            </span>
+            <span className="font-label-sm text-label-sm text-surface-tint">
+              Tulum · Playa · Mayakoba
+            </span>
+          </div>
+
+          <div
+            className="flex gap-2 overflow-x-auto no-scrollbar pb-1"
+            role="tablist"
+          >
+            {dict.audience.segments.map((seg: any, index: number) => {
+              const isActive = activeSegmentIdx === index;
               return (
                 <button
                   key={seg.id}
                   type="button"
-                  onClick={() => setActiveSegmentIdx(idx)}
-                  className={`py-2.5 px-2 rounded-xl text-center font-label-sm text-label-sm transition-all flex flex-col items-center gap-1 ${
+                  role="tab"
+                  aria-selected={isActive}
+                  onClick={() => setActiveSegmentIdx(index)}
+                  className={`flex-shrink-0 flex items-center gap-2 px-4 py-2.5 rounded-xl font-label-md text-label-md transition-all active:scale-95 ${
                     isActive
-                      ? "bg-surface-container-lowest text-primary shadow-sm font-semibold"
-                      : "text-on-surface-variant hover:text-primary"
+                      ? "bg-primary text-on-primary shadow-sm"
+                      : "bg-surface-container-low text-on-surface hover:bg-surface-container"
                   }`}
                 >
                   <span className="material-symbols-outlined text-[18px]">
-                    {segmentIcons[idx] || "vpn_key"}
+                    {segmentIcons[index] || "villa"}
                   </span>
-                  <span className="truncate max-w-full">{seg.title}</span>
+                  <span>{seg.shortLabel}</span>
                 </button>
               );
             })}
           </div>
 
-          {/* Dynamic Segment Message Box */}
+          {/* Dynamic Segment Value Card */}
           <motion.div
             key={activeSegment.id}
             initial={{ opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.25 }}
-            className="mt-3 p-4 sm:p-5 bg-surface-container-lowest rounded-xl shadow-card flex flex-col sm:flex-row sm:items-center justify-between gap-4 border border-outline-variant/20"
+            className="mt-3 p-4 sm:p-5 rounded-2xl bg-surface-container-lowest shadow-sm border border-outline-variant/25 flex flex-col sm:flex-row sm:items-center justify-between gap-4"
           >
-            <div className="flex items-start gap-3">
-              <div className="w-9 h-9 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container flex-shrink-0">
-                <span className="material-symbols-outlined text-[18px]">
-                  {segmentDetailIcons[activeSegmentIdx] || "lock_reset"}
+            <div className="flex items-start gap-3.5">
+              <div className="w-10 h-10 rounded-xl bg-secondary-container flex items-center justify-center text-primary flex-shrink-0 mt-0.5">
+                <span className="material-symbols-outlined text-[20px]">
+                  {segmentDetailIcons[activeSegmentIdx] || "verified"}
                 </span>
               </div>
-              <div className="flex flex-col">
+              <div>
                 <div className="flex flex-wrap items-center gap-2">
                   <span className="font-label-md text-label-md text-primary font-semibold">
                     {activeSegment.title}
@@ -215,7 +255,7 @@ export default function HomeClient({ lang, dict }: { lang: Locale; dict: any }) 
           </div>
         </section>
 
-        {/* 4. SEVEN SPECIALIZED DIVISIONS */}
+        {/* 4. SEVEN SPECIALIZED DIVISIONS (Photorealistic Gemini Nano Banana Images + Calibrated Readability Scrim) */}
         <section className="w-full px-4 sm:px-6 pt-6 pb-4">
           <div className="flex items-baseline justify-between mb-4">
             <div>
@@ -240,20 +280,29 @@ export default function HomeClient({ lang, dict }: { lang: Locale; dict: any }) 
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5 sm:gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
             {dict.services.items.map((srv: any, idx: number) => {
               const meta = divisionIcons[srv.id] || divisionIcons["terra-agua"];
               return (
                 <article
                   key={srv.id}
-                  className={`bg-surface-container-lowest rounded-2xl p-4 sm:p-5 shadow-card border border-outline-variant/20 relative overflow-hidden hover:border-primary/30 transition ${
+                  className={`group rounded-2xl p-5 sm:p-6 shadow-card border border-primary/20 relative overflow-hidden bg-[#081C17] text-white hover:shadow-luxury hover:border-brand-terracotta/50 transition-all duration-300 ${
                     idx === 0 ? "md:col-span-2" : ""
                   }`}
                 >
-                  <div className="flex items-start gap-3.5">
-                    <div
-                      className={`w-11 h-11 rounded-xl bg-surface-container flex items-center justify-center ${meta.color} flex-shrink-0`}
-                    >
+                  {/* Photorealistic Gemini Nano Banana Background Image */}
+                  <img
+                    src={meta.image}
+                    alt={`${srv.brand} - ${srv.category}`}
+                    loading="lazy"
+                    className="absolute inset-0 w-full h-full object-cover object-center opacity-55 group-hover:opacity-65 group-hover:scale-105 transition-all duration-700 pointer-events-none"
+                  />
+                  {/* Calibrated Multi-Layer Readability Scrim (Ensures WCAG AAA contrast + rich photorealism) */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-[#061712]/92 via-[#0A231C]/82 to-[#0A231C]/50 pointer-events-none" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#051410]/90 via-transparent to-[#051410]/35 pointer-events-none" />
+
+                  <div className="relative z-10 flex items-start gap-4">
+                    <div className="w-12 h-12 rounded-xl bg-white/15 backdrop-blur-md border border-white/20 flex items-center justify-center text-brand-sand flex-shrink-0 shadow-sm">
                       <span className="material-symbols-outlined text-[24px]">
                         {meta.icon}
                       </span>
@@ -262,27 +311,28 @@ export default function HomeClient({ lang, dict }: { lang: Locale; dict: any }) 
                       <div className="flex items-center justify-between gap-2">
                         <Link
                           href={`/${lang}/services/${srv.id}`}
-                          className="font-title-lg text-title-lg text-primary hover:underline truncate"
+                          className="font-title-lg text-lg sm:text-xl font-semibold text-white group-hover:text-brand-sand hover:underline truncate drop-shadow-sm"
                         >
                           {srv.brand}
                         </Link>
-                        <span
-                          className={`px-2.5 py-0.5 rounded-full font-label-sm text-label-sm shrink-0 ${meta.badgeClass}`}
-                        >
+                        <span className="px-3 py-0.5 rounded-full font-label-sm text-label-sm shrink-0 bg-white/15 backdrop-blur-md text-brand-sand border border-white/20 font-semibold">
                           {srv.badge}
                         </span>
                       </div>
-                      <p className="font-label-md text-label-md text-on-surface-variant mt-0.5 font-medium">
+                      <p className="font-label-md text-label-md text-[#F4A68E] mt-0.5 font-semibold drop-shadow-sm">
                         {srv.category}
                       </p>
-                      <p className="font-body-sm text-body-sm text-on-surface-variant mt-1 leading-relaxed">
+                      <p className="font-body-sm text-body-sm text-white/95 mt-1.5 leading-relaxed drop-shadow-sm max-w-3xl">
                         {srv.fullDesc}
                       </p>
-                      <div className="mt-3 flex flex-wrap items-center justify-between gap-2">
-                        <div className="flex flex-wrap items-center gap-3 text-on-surface-variant font-label-sm text-label-sm">
+                      <div className="mt-4 pt-3 border-t border-white/15 flex flex-wrap items-center justify-between gap-2.5">
+                        <div className="flex flex-wrap items-center gap-2 text-brand-sand font-label-sm text-label-sm">
                           {(srv.checks || []).map((chk: string, cIdx: number) => (
-                            <span key={cIdx} className="flex items-center gap-1">
-                              <span className="material-symbols-outlined text-[15px] text-surface-tint">
+                            <span
+                              key={cIdx}
+                              className="inline-flex items-center gap-1.5 bg-black/30 backdrop-blur-sm px-2.5 py-1 rounded-full border border-white/10 text-white/95"
+                            >
+                              <span className="material-symbols-outlined text-[14px] text-[#F4A68E]">
                                 check_circle
                               </span>
                               {chk}
@@ -291,9 +341,9 @@ export default function HomeClient({ lang, dict }: { lang: Locale; dict: any }) 
                         </div>
                         <Link
                           href={`/${lang}/services/${srv.id}`}
-                          className="font-label-sm text-label-sm text-brand-terracotta font-semibold hover:underline"
+                          className="inline-flex items-center gap-1 px-3.5 py-1.5 rounded-full bg-brand-terracotta hover:bg-brand-terracotta-dark text-white font-label-sm text-label-sm font-semibold shadow-sm transition"
                         >
-                          + Info →
+                          <span>+ Info →</span>
                         </Link>
                       </div>
                     </div>
@@ -355,164 +405,106 @@ export default function HomeClient({ lang, dict }: { lang: Locale; dict: any }) 
         </div>
       </section>
 
-      {/* 6. COMPLIMENTARY TERRA CHECK BOOKING FORM */}
+      {/* 6. COMPLIMENTARY TERRA CHECK BOOKING SECTION */}
       <section
-        className="max-w-3xl mx-auto w-full px-4 sm:px-6 py-8"
+        className="max-w-5xl mx-auto w-full px-4 sm:px-6 py-10"
         id="booking-form"
       >
-        <div className="bg-surface-container-lowest rounded-3xl p-5 sm:p-8 shadow-md border border-outline-variant/30">
-          <div className="flex flex-col gap-1 text-left">
-            <span
-              className="font-label-sm text-label-sm uppercase tracking-widest font-semibold"
-              style={{ color: "#C86D51" }}
-            >
-              {dict.terraCheck.badge}
-            </span>
-            <h2 className="font-headline-sm text-headline-sm text-primary">
-              {dict.terraCheck.title}
-            </h2>
-            <p className="font-body-sm text-body-sm text-on-surface-variant">
-              {dict.terraCheck.subtitle}
-            </p>
+        <div className="rounded-3xl bg-[#F6F3EC] shadow-luxury border border-brand-green/15 overflow-hidden grid grid-cols-1 lg:grid-cols-12">
+          {/* Left Panel: Architectural Context & 48-Point Checklist */}
+          <div className="lg:col-span-5 bg-brand-green text-brand-sand p-6 sm:p-8 flex flex-col justify-between relative overflow-hidden">
+            <img
+              src="/images/services/terra-agua.jpg"
+              alt=""
+              aria-hidden="true"
+              className="absolute inset-0 w-full h-full object-cover object-center opacity-25 pointer-events-none"
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-[#0d2620]/90 via-[#1A3C34]/92 to-[#091b16]/98 pointer-events-none" />
+
+            <div className="space-y-4 relative z-10">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-terracotta px-3.5 py-1 text-[11px] font-bold uppercase tracking-wider text-white shadow-sm">
+                {dict.terraCheck.badge}
+              </span>
+              <h2 className="font-serif text-2xl sm:text-3xl font-bold text-white leading-tight">
+                {dict.terraCheck.title}
+              </h2>
+              <p className="text-xs sm:text-sm text-brand-sand/90 leading-relaxed">
+                {dict.terraCheck.subtitle}
+              </p>
+
+              <div className="pt-3 space-y-2 border-t border-white/15">
+                <p className="text-[11px] font-bold uppercase tracking-widest text-brand-terracotta-light pb-1">
+                  {lang === "es"
+                    ? "¿Qué revisamos en tu Terra Check?"
+                    : lang === "fr"
+                    ? "Que vérifions-nous lors du Terra Check ?"
+                    : lang === "it"
+                    ? "Cosa controlliamo nel tuo Terra Check?"
+                    : "What's included in your Terra Check?"}
+                </p>
+                <div className="space-y-2">
+                  {(inspectionPointsMap[lang] || inspectionPointsMap.es).map(
+                    (pt, idx) => (
+                      <div
+                        key={idx}
+                        className="flex items-start gap-2.5 text-xs text-white/95 bg-white/[0.06] backdrop-blur-sm border border-white/10 rounded-xl px-3 py-2"
+                      >
+                        <CheckCircle className="w-4 h-4 text-brand-terracotta shrink-0 mt-0.5" />
+                        <span className="leading-snug">{pt}</span>
+                      </div>
+                    )
+                  )}
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-6 pt-4 border-t border-white/15 space-y-2.5 relative z-10">
+              <div className="grid grid-cols-2 gap-2.5 text-xs">
+                <div className="flex items-center gap-2 bg-white/[0.07] rounded-xl px-3 py-2 border border-white/10">
+                  <Camera className="w-4 h-4 text-brand-terracotta shrink-0" />
+                  <span className="font-medium text-white">360° + Drone AFAC</span>
+                </div>
+                <div className="flex items-center gap-2 bg-white/[0.07] rounded-xl px-3 py-2 border border-white/10">
+                  <Clock className="w-4 h-4 text-brand-terracotta shrink-0" />
+                  <span className="font-medium text-white">
+                    {lang === "es" ? "Reporte en 48 h" : "Report in 48 hrs"}
+                  </span>
+                </div>
+              </div>
+              <div className="flex items-center gap-2 text-[11px] text-brand-sand/75 px-1">
+                <MapPin className="w-3.5 h-3.5 text-brand-terracotta shrink-0" />
+                <span className="truncate">{CONTACT_INFO.addressLine}</span>
+              </div>
+            </div>
           </div>
 
-          <form
-            className="mt-5 flex flex-col gap-4"
-            onSubmit={handleInlineBookingSubmit}
-          >
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <label className="block font-label-sm text-label-sm text-on-surface-variant mb-1">
-                  {dict.terraCheck.fields.name}
-                </label>
-                <input
-                  className="w-full h-11 px-3.5 rounded-xl bg-surface-container-lowest border border-outline-variant/60 text-on-surface font-body-md text-body-md shadow-sm outline-none focus:bg-surface-container-low transition-all"
-                  placeholder={dict.terraCheck.fields.namePlaceholder}
-                  required
-                  type="text"
-                />
-              </div>
-
-              <div>
-                <label className="block font-label-sm text-label-sm text-on-surface-variant mb-1">
-                  {dict.terraCheck.fields.location}
-                </label>
-                <select
-                  defaultValue=""
-                  className="w-full h-11 px-3 rounded-xl bg-surface-container-lowest border border-outline-variant/60 text-on-surface font-body-md text-body-md shadow-sm outline-none focus:bg-surface-container-low transition-all"
-                  required
+          {/* Right Panel: Unified LeadForm */}
+          <div className="lg:col-span-7 p-6 sm:p-8 bg-[#F6F3EC] flex flex-col justify-between">
+            <div>
+              <div className="flex items-center justify-between pb-4 mb-4 border-b border-brand-green/10">
+                <div className="flex items-center gap-2">
+                  <div className="w-7 h-7 rounded-lg bg-brand-terracotta/15 flex items-center justify-center text-brand-terracotta">
+                    <ShieldCheck className="w-4 h-4" />
+                  </div>
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-brand-green/80">
+                    {lang === "es"
+                      ? "Atención Directa · Playa · Tulum · Puerto Morelos"
+                      : "Direct Dispatch · Playa · Tulum · Puerto Morelos"}
+                  </span>
+                </div>
+                <a
+                  href={CONTACT_INFO.whatsappBase}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xs font-bold text-brand-terracotta hover:underline"
                 >
-                  <option disabled value="">
-                    --
-                  </option>
-                  {dict.terraCheck.fields.locations.map((loc: string) => (
-                    <option key={loc} value={loc}>
-                      {loc}
-                    </option>
-                  ))}
-                </select>
+                  WhatsApp: {CONTACT_INFO.phoneDisplay}
+                </a>
               </div>
+
+              <LeadForm lang={lang} dict={dict} compact />
             </div>
-
-            <div>
-              <label className="block font-label-sm text-label-sm text-on-surface-variant mb-1">
-                {dict.terraCheck.fields.phone}
-              </label>
-              <div className="flex items-center gap-2">
-                <span className="h-11 px-3.5 bg-surface-container-low text-on-surface-variant rounded-xl flex items-center font-label-sm text-label-sm shadow-sm font-semibold border border-outline-variant/40">
-                  +52
-                </span>
-                <input
-                  className="w-full h-11 px-3.5 rounded-xl bg-surface-container-lowest border border-outline-variant/60 text-on-surface font-body-md text-body-md shadow-sm outline-none focus:bg-surface-container-low transition-all"
-                  placeholder="984 175 0007"
-                  required
-                  type="tel"
-                />
-              </div>
-            </div>
-
-            <div>
-              <label className="block font-label-sm text-label-sm text-on-surface-variant mb-1.5">
-                {dict.terraCheck.fields.notes}
-              </label>
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-left">
-                {dict.services.items.slice(0, 4).map((srv: any) => (
-                  <label
-                    key={srv.id}
-                    className="flex items-center gap-2 p-2.5 bg-surface-container-low rounded-lg cursor-pointer hover:bg-surface-container transition"
-                  >
-                    <input
-                      type="checkbox"
-                      checked={selectedDivisions.includes(srv.id)}
-                      onChange={() => toggleDivision(srv.id)}
-                      className="accent-primary h-4 w-4 shrink-0"
-                    />
-                    <span className="font-label-sm text-label-sm text-on-surface truncate">
-                      {srv.brand}
-                    </span>
-                  </label>
-                ))}
-              </div>
-            </div>
-
-            <button
-              className="w-full h-12 mt-2 rounded-xl text-on-tertiary font-label-lg text-label-lg shadow-md hover:opacity-95 active:scale-[0.98] transition-all flex items-center justify-center gap-2"
-              style={{ backgroundColor: "#C86D51" }}
-              type="submit"
-            >
-              <span className="material-symbols-outlined text-[20px]">
-                calendar_month
-              </span>
-              <span>{dict.terraCheck.fields.submit}</span>
-            </button>
-
-            {bookingSubmitted && (
-              <div className="p-3.5 rounded-xl bg-surface-container text-surface-tint font-label-md text-label-md flex items-center gap-2">
-                <span className="material-symbols-outlined text-[20px]">
-                  check_circle
-                </span>
-                <span>{dict.terraCheck.success.desc}</span>
-              </div>
-            )}
-
-            <div className="relative flex py-1 items-center">
-              <div className="flex-grow bg-surface-variant/60 h-px"></div>
-              <span className="flex-shrink mx-3 text-on-surface-variant font-label-sm text-label-sm uppercase tracking-wider">
-                WhatsApp Directo
-              </span>
-              <div className="flex-grow bg-surface-variant/60 h-px"></div>
-            </div>
-
-            {/* WhatsApp Quick Link (+52 1 984 175 0007) */}
-            <a
-              className="w-full h-12 rounded-xl bg-surface-container-low text-primary font-label-lg text-label-lg flex items-center justify-center gap-2 hover:bg-surface-container transition-all active:scale-[0.98]"
-              href={`${CONTACT_INFO.whatsappBase}?text=${encodeURIComponent(
-                "Hola Terra Maya, deseo agendar un Terra Check gratuito para mi propiedad en la Riviera Maya."
-              )}`}
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              <span className="material-symbols-outlined text-[20px] text-surface-tint">
-                chat
-              </span>
-              <span>WhatsApp: {CONTACT_INFO.phoneDisplay}</span>
-            </a>
-
-            <div className="flex flex-wrap items-center justify-center gap-4 text-on-surface-variant font-label-sm text-label-sm pt-1">
-              <span className="flex items-center gap-1">
-                <span className="material-symbols-outlined text-[14px]">
-                  lock
-                </span>
-                NDA · LFPDPPP · GDPR
-              </span>
-              <span className="flex items-center gap-1">
-                <span className="material-symbols-outlined text-[14px]">
-                  location_on
-                </span>
-                {CONTACT_INFO.addressLine}
-              </span>
-            </div>
-          </form>
+          </div>
         </div>
       </section>
     </div>

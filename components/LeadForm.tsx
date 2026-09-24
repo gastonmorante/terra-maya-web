@@ -2,7 +2,14 @@
 
 import React, { useRef, useState, useEffect } from "react";
 import Link from "next/link";
-import { CheckCircle2, AlertCircle, Sparkles, ArrowRight, ShieldCheck } from "lucide-react";
+import {
+  CheckCircle2,
+  AlertCircle,
+  Sparkles,
+  ArrowRight,
+  ShieldCheck,
+  ChevronDown,
+} from "lucide-react";
 import { CONTACT_INFO, type Locale } from "@/lib/i18n/dictionaries";
 
 interface LeadFormProps {
@@ -131,7 +138,7 @@ export default function LeadForm({
             )}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-xl bg-brand-terracotta hover:bg-brand-terracotta-dark text-white font-semibold px-5 py-2.5 text-sm transition"
+            className="inline-flex items-center gap-2 rounded-xl bg-brand-terracotta hover:bg-brand-terracotta-dark text-white font-semibold px-5 py-2.5 text-sm transition shadow-md"
           >
             <span>WhatsApp ({CONTACT_INFO.phoneDisplay})</span>
             <ArrowRight className="w-4 h-4" />
@@ -148,50 +155,46 @@ export default function LeadForm({
     );
   }
 
+  const inputBaseClass =
+    "w-full rounded-xl border border-brand-green/15 bg-white px-4 py-2.5 text-sm text-brand-green shadow-[0_1px_2px_rgba(26,60,52,0.04)] placeholder:text-brand-green/35 hover:border-brand-green/30 focus:border-brand-terracotta focus:outline-none focus:ring-2 focus:ring-brand-terracotta/15 transition-all";
+
+  const labelBaseClass =
+    "block text-[11px] font-bold uppercase tracking-wider text-brand-green/85 mb-1.5";
+
   return (
     <form
       ref={formRef}
       onSubmit={handleSubmit}
       noValidate
-      className="space-y-4 text-left"
+      className="space-y-3.5 text-left"
     >
-      <div
-        className={`grid gap-4 ${
-          compact ? "grid-cols-1" : "grid-cols-1 sm:grid-cols-2"
-        }`}
-      >
-        {/* Name */}
-        <div>
-          <label
-            htmlFor="tc-name"
-            className="block text-xs font-bold uppercase tracking-wider text-brand-green mb-1.5"
-          >
-            {dict.terraCheck.fields.name}{" "}
-            <span className="text-brand-terracotta">*</span>
-          </label>
-          <input
-            id="tc-name"
-            name="name"
-            type="text"
-            required
-            minLength={2}
-            placeholder={dict.terraCheck.fields.namePlaceholder}
-            onBlur={handleBlur}
-            onInput={handleInput}
-            className="w-full rounded-xl border border-brand-green/20 bg-white px-4 py-3 text-sm text-brand-green placeholder:text-brand-green/40 focus:border-brand-green focus:outline-none focus:ring-2 focus:ring-brand-green/15 transition"
-          />
-          <p className="field-error-msg items-center gap-1.5 text-xs text-brand-terracotta font-medium mt-1.5">
-            <AlertCircle className="w-3.5 h-3.5 shrink-0" />
-            <span>{dict.terraCheck.errors.name}</span>
-          </p>
-        </div>
+      {/* Full Name */}
+      <div>
+        <label htmlFor="tc-name" className={labelBaseClass}>
+          {dict.terraCheck.fields.name}{" "}
+          <span className="text-brand-terracotta">*</span>
+        </label>
+        <input
+          id="tc-name"
+          name="name"
+          type="text"
+          required
+          minLength={2}
+          placeholder={dict.terraCheck.fields.namePlaceholder}
+          onBlur={handleBlur}
+          onInput={handleInput}
+          className={inputBaseClass}
+        />
+        <p className="field-error-msg items-center gap-1.5 text-xs text-brand-terracotta font-medium mt-1">
+          <AlertCircle className="w-3.5 h-3.5 shrink-0" />
+          <span>{dict.terraCheck.errors.name}</span>
+        </p>
+      </div>
 
-        {/* Email */}
+      {/* Email & WhatsApp Phone side by side */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
         <div>
-          <label
-            htmlFor="tc-email"
-            className="block text-xs font-bold uppercase tracking-wider text-brand-green mb-1.5"
-          >
+          <label htmlFor="tc-email" className={labelBaseClass}>
             {dict.terraCheck.fields.email}{" "}
             <span className="text-brand-terracotta">*</span>
           </label>
@@ -203,26 +206,16 @@ export default function LeadForm({
             placeholder={dict.terraCheck.fields.emailPlaceholder}
             onBlur={handleBlur}
             onInput={handleInput}
-            className="w-full rounded-xl border border-brand-green/20 bg-white px-4 py-3 text-sm text-brand-green placeholder:text-brand-green/40 focus:border-brand-green focus:outline-none focus:ring-2 focus:ring-brand-green/15 transition"
+            className={inputBaseClass}
           />
-          <p className="field-error-msg items-center gap-1.5 text-xs text-brand-terracotta font-medium mt-1.5">
+          <p className="field-error-msg items-center gap-1.5 text-xs text-brand-terracotta font-medium mt-1">
             <AlertCircle className="w-3.5 h-3.5 shrink-0" />
             <span>{dict.terraCheck.errors.email}</span>
           </p>
         </div>
-      </div>
 
-      <div
-        className={`grid gap-4 ${
-          compact ? "grid-cols-1" : "grid-cols-1 sm:grid-cols-2"
-        }`}
-      >
-        {/* WhatsApp Phone */}
         <div>
-          <label
-            htmlFor="tc-phone"
-            className="block text-xs font-bold uppercase tracking-wider text-brand-green mb-1.5"
-          >
+          <label htmlFor="tc-phone" className={labelBaseClass}>
             {dict.terraCheck.fields.phone}{" "}
             <span className="text-brand-terracotta">*</span>
           </label>
@@ -235,65 +228,63 @@ export default function LeadForm({
             placeholder={dict.terraCheck.fields.phonePlaceholder}
             onBlur={handleBlur}
             onInput={handleInput}
-            className="w-full rounded-xl border border-brand-green/20 bg-white px-4 py-3 text-sm text-brand-green placeholder:text-brand-green/40 focus:border-brand-green focus:outline-none focus:ring-2 focus:ring-brand-green/15 transition"
+            className={inputBaseClass}
           />
-          <p className="field-error-msg items-center gap-1.5 text-xs text-brand-terracotta font-medium mt-1.5">
+          <p className="field-error-msg items-center gap-1.5 text-xs text-brand-terracotta font-medium mt-1">
             <AlertCircle className="w-3.5 h-3.5 shrink-0" />
             <span>{dict.terraCheck.errors.phone}</span>
           </p>
         </div>
-
-        {/* Location */}
-        <div>
-          <label
-            htmlFor="tc-location"
-            className="block text-xs font-bold uppercase tracking-wider text-brand-green mb-1.5"
-          >
-            {dict.terraCheck.fields.location}
-          </label>
-          <select
-            id="tc-location"
-            name="location"
-            className="w-full rounded-xl border border-brand-green/20 bg-white px-4 py-3 text-sm text-brand-green focus:border-brand-green focus:outline-none focus:ring-2 focus:ring-brand-green/15 transition"
-          >
-            {dict.terraCheck.fields.locations.map((loc: string) => (
-              <option key={loc} value={loc}>
-                {loc}
-              </option>
-            ))}
-          </select>
-        </div>
       </div>
 
-      {/* Segment */}
-      <div>
-        <label
-          htmlFor="tc-segment"
-          className="block text-xs font-bold uppercase tracking-wider text-brand-green mb-1.5"
-        >
-          {dict.terraCheck.fields.segment}
-        </label>
-        <select
-          id="tc-segment"
-          name="segment"
-          value={segment}
-          onChange={(e) => setSegment(e.target.value)}
-          className="w-full rounded-xl border border-brand-green/20 bg-white px-4 py-3 text-sm text-brand-green focus:border-brand-green focus:outline-none focus:ring-2 focus:ring-brand-green/15 transition"
-        >
-          {dict.terraCheck.fields.segments.map((seg: string) => (
-            <option key={seg} value={seg}>
-              {seg}
-            </option>
-          ))}
-        </select>
+      {/* Location & Property Segment side by side */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+        <div>
+          <label htmlFor="tc-location" className={labelBaseClass}>
+            {dict.terraCheck.fields.location}
+          </label>
+          <div className="relative">
+            <select
+              id="tc-location"
+              name="location"
+              className={`${inputBaseClass} appearance-none pr-9 cursor-pointer truncate`}
+            >
+              {dict.terraCheck.fields.locations.map((loc: string) => (
+                <option key={loc} value={loc}>
+                  {loc}
+                </option>
+              ))}
+            </select>
+            <ChevronDown className="w-4 h-4 text-brand-green/50 pointer-events-none absolute right-3 top-1/2 -translate-y-1/2" />
+          </div>
+        </div>
+
+        <div>
+          <label htmlFor="tc-segment" className={labelBaseClass}>
+            {dict.terraCheck.fields.segment}
+          </label>
+          <div className="relative">
+            <select
+              id="tc-segment"
+              name="segment"
+              value={segment}
+              onChange={(e) => setSegment(e.target.value)}
+              className={`${inputBaseClass} appearance-none pr-9 cursor-pointer truncate`}
+            >
+              {dict.terraCheck.fields.segments.map((seg: string) => (
+                <option key={seg} value={seg}>
+                  {seg}
+                </option>
+              ))}
+            </select>
+            <ChevronDown className="w-4 h-4 text-brand-green/50 pointer-events-none absolute right-3 top-1/2 -translate-y-1/2" />
+          </div>
+        </div>
       </div>
 
       {/* Notes */}
       <div>
-        <label
-          htmlFor="tc-notes"
-          className="block text-xs font-bold uppercase tracking-wider text-brand-green mb-1.5"
-        >
+        <label htmlFor="tc-notes" className={labelBaseClass}>
           {dict.terraCheck.fields.notes}
         </label>
         <textarea
@@ -303,26 +294,28 @@ export default function LeadForm({
           value={notes}
           onChange={(e) => setNotes(e.target.value)}
           placeholder={dict.terraCheck.fields.notesPlaceholder}
-          className="w-full rounded-xl border border-brand-green/20 bg-white px-4 py-2.5 text-sm text-brand-green placeholder:text-brand-green/40 focus:border-brand-green focus:outline-none focus:ring-2 focus:ring-brand-green/15 transition"
+          className={`${inputBaseClass} resize-none leading-relaxed`}
         />
       </div>
 
-      <button
-        type="submit"
-        disabled={submitting}
-        className="w-full flex items-center justify-center gap-2 rounded-xl bg-brand-terracotta hover:bg-brand-terracotta-dark text-white font-semibold py-3.5 px-6 text-sm shadow-lg shadow-brand-terracotta/25 transition-all duration-200"
-      >
-        <Sparkles className="w-4 h-4" />
-        <span>
-          {submitting
-            ? dict.terraCheck.fields.submitting
-            : dict.terraCheck.fields.submit}
-        </span>
-        <ArrowRight className="w-4 h-4" />
-      </button>
+      <div className="pt-1">
+        <button
+          type="submit"
+          disabled={submitting}
+          className="w-full flex items-center justify-center gap-2 rounded-xl bg-brand-terracotta hover:bg-brand-terracotta-dark active:scale-[0.99] text-white font-semibold py-3.5 px-6 text-sm shadow-lg shadow-brand-terracotta/25 transition-all duration-200"
+        >
+          <Sparkles className="w-4 h-4" />
+          <span>
+            {submitting
+              ? dict.terraCheck.fields.submitting
+              : dict.terraCheck.fields.submit}
+          </span>
+          <ArrowRight className="w-4 h-4" />
+        </button>
+      </div>
 
-      <div className="flex flex-wrap items-center justify-center gap-2 text-[11px] text-brand-green/70 pt-1">
-        <ShieldCheck className="w-4 h-4 text-brand-green shrink-0" />
+      <div className="flex flex-wrap items-center justify-center gap-1.5 text-[11px] text-brand-green/65 pt-0.5">
+        <ShieldCheck className="w-3.5 h-3.5 text-brand-terracotta shrink-0" />
         <span>NDA · LFPDPPP · GDPR ·</span>
         <Link
           href={`/${lang}/legal/privacy`}

@@ -50,29 +50,39 @@ export default function ServiceDetailPage({
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
         <div className="lg:col-span-7 space-y-6">
-          <div className="rounded-3xl bg-brand-green text-brand-sand p-8 sm:p-10 space-y-5 shadow-luxury">
-            <span className="inline-block rounded-full bg-brand-terracotta px-3.5 py-1 text-xs font-bold uppercase tracking-widest text-white">
-              {service.brand} · {service.badge}
-            </span>
-            <h1 className="font-serif text-3xl sm:text-4xl font-bold text-white">
-              {service.category}
-            </h1>
-            <p className="text-base text-brand-sand/85 leading-relaxed">
-              {service.fullDesc}
-            </p>
-            <div className="pt-4 border-t border-white/15 flex flex-wrap items-center justify-between gap-4">
-              <span className="text-sm font-bold text-brand-terracotta-light">
-                {service.priceHint}
+          <div className="rounded-3xl bg-[#081C17] text-brand-sand p-8 sm:p-10 space-y-5 shadow-luxury relative overflow-hidden">
+            <img
+              src={`/images/services/${service.id}.jpg`}
+              alt={`${service.brand} - ${service.category}`}
+              className="absolute inset-0 w-full h-full object-cover object-center opacity-55 pointer-events-none"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#061712]/92 via-[#0A231C]/82 to-[#0A231C]/55 pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#051410]/90 via-transparent to-[#051410]/35 pointer-events-none" />
+
+            <div className="relative z-10 space-y-5">
+              <span className="inline-block rounded-full bg-brand-terracotta px-3.5 py-1 text-xs font-bold uppercase tracking-widest text-white shadow-sm">
+                {service.brand} · {service.badge}
               </span>
-              <div className="flex gap-2">
-                {service.verticals.map((v) => (
-                  <span
-                    key={v}
-                    className="rounded-lg bg-white/10 px-3 py-1 text-xs font-semibold text-brand-sand"
-                  >
-                    {v}
-                  </span>
-                ))}
+              <h1 className="font-serif text-3xl sm:text-4xl font-bold text-white drop-shadow-sm">
+                {service.category}
+              </h1>
+              <p className="text-base text-white/95 leading-relaxed drop-shadow-sm">
+                {service.fullDesc}
+              </p>
+              <div className="pt-4 border-t border-white/20 flex flex-wrap items-center justify-between gap-4">
+                <span className="text-sm font-bold text-[#F4A68E] drop-shadow-sm">
+                  {service.priceHint}
+                </span>
+                <div className="flex flex-wrap gap-2">
+                  {service.verticals.map((v) => (
+                    <span
+                      key={v}
+                      className="rounded-lg bg-black/35 backdrop-blur-sm border border-white/15 px-3 py-1 text-xs font-semibold text-white"
+                    >
+                      {v}
+                    </span>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
