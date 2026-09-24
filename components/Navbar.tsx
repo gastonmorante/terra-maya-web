@@ -233,7 +233,7 @@ export default function Navbar({ lang, dict }: { lang: Locale; dict: any }) {
           </div>
         </div>
 
-        {/* HAMBURGER MENU DRAWER (All Site Pages + 7 Services + Language Selector + Direct CTA) */}
+        {/* HAMBURGER MENU DRAWER (Site Pages + Language Selector + Terra Check & WhatsApp) */}
         {mobileMenuOpen && (
           <div className="lg:hidden border-t border-outline-variant/25 bg-white shadow-2xl max-h-[calc(100vh-4rem)] overflow-y-auto w-full">
             <div className="max-w-7xl mx-auto px-4 py-5 space-y-5">
@@ -274,26 +274,7 @@ export default function Navbar({ lang, dict }: { lang: Locale; dict: any }) {
                 </div>
               </div>
 
-              {/* 2. Direct Links to the 7 Specialized Services */}
-              <div className="pt-3 border-t border-outline-variant/20">
-                <p className="text-[10px] font-bold uppercase tracking-widest text-brand-terracotta mb-2 px-1">
-                  {dict.services.eyebrow}
-                </p>
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-1.5">
-                  {dict.services.items.map((srv: any) => (
-                    <Link
-                      key={srv.id}
-                      href={`/${lang}/services/${srv.id}`}
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="px-3 py-2 rounded-lg bg-[#F6F3EC] hover:bg-brand-sand text-xs font-semibold text-brand-green truncate transition"
-                    >
-                      {srv.brand}
-                    </Link>
-                  ))}
-                </div>
-              </div>
-
-              {/* 3. Multilingual Selector Inside Hamburger Menu */}
+              {/* 2. Multilingual Selector Inside Hamburger Menu */}
               <div className="pt-3 border-t border-outline-variant/20">
                 <p className="text-[10px] font-bold uppercase tracking-widest text-brand-terracotta mb-2 px-1">
                   {lang === "es"
@@ -325,7 +306,7 @@ export default function Navbar({ lang, dict }: { lang: Locale; dict: any }) {
                 </div>
               </div>
 
-              {/* 4. Direct Action Buttons */}
+              {/* 3. Direct Action Buttons (Terra Check & WhatsApp 24/7) */}
               <div className="pt-3 border-t border-outline-variant/20 flex flex-col sm:flex-row gap-2.5">
                 <button
                   type="button"
