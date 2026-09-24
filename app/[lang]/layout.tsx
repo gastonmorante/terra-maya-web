@@ -145,9 +145,9 @@ export default function LocaleLayout({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <div className="min-h-screen flex flex-col bg-surface text-on-surface">
+      <div className="min-h-screen w-full max-w-[100vw] overflow-x-hidden flex flex-col bg-surface text-on-surface">
         <Navbar lang={lang} dict={dict} />
-        <main className="flex-1 flex flex-col relative w-full pt-16 pb-20 md:pb-0 bg-surface">
+        <main className="flex-1 flex flex-col relative w-full max-w-full min-w-0 pt-16 pb-20 lg:pb-0 bg-surface overflow-x-hidden">
           {children}
         </main>
         <Footer lang={lang} dict={dict} />

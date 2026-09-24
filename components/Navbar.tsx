@@ -105,23 +105,23 @@ export default function Navbar({ lang, dict }: { lang: Locale; dict: any }) {
   return (
     <>
       {/* TOP FIXED HEADER */}
-      <header className="fixed top-0 left-0 right-0 w-full z-50 pt-safe bg-surface/95 backdrop-blur-xl shadow-[0_2px_10px_-2px_rgba(20,30,27,0.06)] border-b border-outline-variant/25">
-        <div className="max-w-7xl mx-auto h-16 px-4 sm:px-6 flex items-center justify-between gap-3">
+      <header className="fixed top-0 left-0 right-0 w-full max-w-[100vw] z-50 pt-safe bg-surface/95 backdrop-blur-xl shadow-[0_2px_10px_-2px_rgba(20,30,27,0.06)] border-b border-outline-variant/25 box-border">
+        <div className="max-w-7xl mx-auto w-full h-16 px-3.5 sm:px-6 flex items-center justify-between gap-2 box-border">
           {/* Brand Logo & Name */}
           <Link
             href={`/${lang}`}
-            className="flex items-center gap-2.5 min-w-0 shrink-0"
+            className="flex items-center gap-2 min-w-0 shrink"
           >
             <img
               alt="Terra Maya Logo"
               className="h-8 sm:h-9 w-auto object-contain shrink-0"
               src="/logo.png"
             />
-            <div className="flex flex-col">
-              <span className="font-serif text-base sm:text-lg font-bold text-primary leading-none tracking-tight">
+            <div className="flex flex-col min-w-0">
+              <span className="font-serif text-base sm:text-lg font-bold text-primary leading-none tracking-tight truncate">
                 Terra Maya
               </span>
-              <span className="text-[10px] text-on-surface-variant font-medium mt-0.5">
+              <span className="hidden sm:block text-[10px] text-on-surface-variant font-medium mt-0.5 truncate">
                 Facility &amp; Property Services
               </span>
             </div>
@@ -152,8 +152,8 @@ export default function Navbar({ lang, dict }: { lang: Locale; dict: any }) {
             })}
           </nav>
 
-          {/* Right Controls: Compact Language Dropdown + CTA + Hamburger Menu */}
-          <div className="flex items-center gap-2 shrink-0">
+          {/* Right Controls: Language Selector + Hamburger Menu */}
+          <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
             {/* Compact Multilingual Dropdown Selector */}
             <div className="relative" ref={langMenuRef}>
               <button
@@ -161,12 +161,12 @@ export default function Navbar({ lang, dict }: { lang: Locale; dict: any }) {
                 onClick={() => setLangMenuOpen((prev) => !prev)}
                 aria-expanded={langMenuOpen}
                 aria-label="Select Language"
-                className="h-9 px-2.5 rounded-xl bg-surface-container-low hover:bg-surface-container border border-outline-variant/30 flex items-center gap-1.5 text-xs font-bold text-primary transition"
+                className="h-9 px-2.5 rounded-xl bg-surface-container-low hover:bg-surface-container border border-outline-variant/30 flex items-center gap-1 text-xs font-bold text-primary transition"
               >
-                <Globe className="w-4 h-4 text-brand-terracotta shrink-0" />
+                <Globe className="w-3.5 h-3.5 text-brand-terracotta shrink-0" />
                 <span className="uppercase">{lang}</span>
                 <ChevronDown
-                  className={`w-3.5 h-3.5 text-on-surface-variant transition-transform ${
+                  className={`w-3 h-3 text-on-surface-variant transition-transform ${
                     langMenuOpen ? "rotate-180" : ""
                   }`}
                 />
@@ -207,19 +207,21 @@ export default function Navbar({ lang, dict }: { lang: Locale; dict: any }) {
                   notes: defaultHeaderNote[lang] || defaultHeaderNote.es,
                 })
               }
-              className="hidden sm:inline-flex h-9 px-3.5 items-center justify-center gap-1.5 text-white bg-brand-terracotta hover:bg-brand-terracotta-dark rounded-xl shadow-sm text-xs font-bold uppercase tracking-wider transition-all"
+              className="hidden md:inline-flex h-9 px-3.5 items-center justify-center gap-1.5 text-white bg-brand-terracotta hover:bg-brand-terracotta-dark rounded-xl shadow-sm text-xs font-bold uppercase tracking-wider transition-all"
             >
               <ShieldCheck className="w-4 h-4 shrink-0" />
               <span>{dict.nav.cta}</span>
             </button>
 
-            {/* Hamburger Menu Button (Visible on Mobile & Tablet <1024px, opens full site navigation + languages) */}
+            {/* Hamburger Menu Button (Visible on Mobile & Tablet <1024px) */}
             <button
               type="button"
               onClick={() => setMobileMenuOpen((prev) => !prev)}
               aria-expanded={mobileMenuOpen}
-              aria-label={mobileMenuOpen ? "Cerrar menú" : "Abrir menú de navegación"}
-              className="lg:hidden h-9 px-3 rounded-xl bg-primary text-on-primary flex items-center gap-1.5 text-xs font-bold shadow-sm active:scale-95 transition"
+              aria-label={
+                mobileMenuOpen ? "Cerrar menú" : "Abrir menú de navegación"
+              }
+              className="lg:hidden h-9 px-3 rounded-xl bg-primary text-on-primary flex items-center justify-center gap-1.5 text-xs font-bold shadow-sm active:scale-95 transition shrink-0"
             >
               {mobileMenuOpen ? (
                 <X className="w-4 h-4 shrink-0" />
@@ -233,7 +235,7 @@ export default function Navbar({ lang, dict }: { lang: Locale; dict: any }) {
 
         {/* HAMBURGER MENU DRAWER (All Site Pages + 7 Services + Language Selector + Direct CTA) */}
         {mobileMenuOpen && (
-          <div className="lg:hidden border-t border-outline-variant/25 bg-white shadow-2xl max-h-[calc(100vh-4rem)] overflow-y-auto">
+          <div className="lg:hidden border-t border-outline-variant/25 bg-white shadow-2xl max-h-[calc(100vh-4rem)] overflow-y-auto w-full">
             <div className="max-w-7xl mx-auto px-4 py-5 space-y-5">
               {/* 1. Main Pages Navigation */}
               <div>
@@ -355,9 +357,9 @@ export default function Navbar({ lang, dict }: { lang: Locale; dict: any }) {
       {/* BOTTOM MOBILE TAB BAR (All 5 Core Pages Accessible in 1 Tap on Mobile) */}
       <nav
         aria-label="Mobile Bottom Navigation"
-        className="lg:hidden fixed bottom-0 left-0 right-0 w-full z-40 pb-safe bg-surface-container-lowest/95 backdrop-blur-xl shadow-[0_-4px_16px_rgba(20,30,27,0.06)] border-t border-outline-variant/25"
+        className="lg:hidden fixed bottom-0 left-0 right-0 w-full max-w-[100vw] z-40 pb-safe bg-surface-container-lowest/95 backdrop-blur-xl shadow-[0_-4px_16px_rgba(20,30,27,0.06)] border-t border-outline-variant/25 box-border"
       >
-        <div className="grid grid-cols-5 items-center h-16 px-1">
+        <div className="grid grid-cols-5 items-center h-16 px-1 w-full">
           {navItems.map((item) => {
             const active = isActive(item.href, item.exact);
             const IconComp = item.Icon;
@@ -366,7 +368,7 @@ export default function Navbar({ lang, dict }: { lang: Locale; dict: any }) {
                 key={item.href}
                 href={item.href}
                 aria-current={active ? "page" : undefined}
-                className={`flex flex-col items-center justify-center min-h-[48px] px-1 py-1 transition-all gap-1 ${
+                className={`flex flex-col items-center justify-center min-h-[48px] min-w-0 px-0.5 py-1 transition-all gap-1 ${
                   active
                     ? "text-primary font-bold relative after:content-[''] after:absolute after:bottom-0.5 after:w-1.5 after:h-1.5 after:rounded-full after:bg-brand-terracotta"
                     : "text-on-surface-variant hover:text-primary font-medium"

@@ -97,10 +97,10 @@ export default function HomeClient({ lang, dict }: { lang: Locale; dict: any }) 
   };
 
   return (
-    <div className="flex flex-col w-full font-body-md text-on-surface overflow-x-hidden">
+    <div className="flex flex-col w-full max-w-[100vw] min-w-0 font-body-md text-on-surface overflow-x-hidden box-border">
       {/* 1. HERO SECTION (Native Mobile + Full-Width PC/Tablet) */}
-      <section className="relative w-full overflow-hidden bg-primary-container text-on-primary">
-        <div className="relative min-h-[500px] sm:min-h-[540px] lg:min-h-[620px] w-full flex flex-col justify-end">
+      <section className="relative w-full max-w-full min-w-0 overflow-hidden bg-primary-container text-on-primary box-border">
+        <div className="relative min-h-[480px] sm:min-h-[540px] lg:min-h-[620px] w-full max-w-full min-w-0 flex flex-col justify-end box-border">
           <img
             alt="Villa contemporánea en la selva caribeña - Terra Maya"
             className="absolute inset-0 w-full h-full object-cover object-center"
@@ -109,27 +109,27 @@ export default function HomeClient({ lang, dict }: { lang: Locale; dict: any }) 
           <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/75 to-primary/25" />
 
           {/* Hero Bottom Copy & CTAs */}
-          <div className="relative z-10 max-w-7xl mx-auto w-full px-4 pt-10 pb-7 sm:p-8 lg:pb-14 flex flex-col lg:flex-row lg:items-end justify-between gap-6 lg:gap-8">
-            <div className="max-w-2xl flex flex-col gap-3">
-              <h1 className="font-serif text-[26px] leading-[1.18] sm:text-4xl lg:text-5xl font-semibold text-surface-bright tracking-tight">
+          <div className="relative z-10 max-w-7xl mx-auto w-full min-w-0 px-4 pt-8 pb-6 sm:p-8 lg:pb-14 flex flex-col lg:flex-row lg:items-end justify-between gap-5 lg:gap-8 box-border">
+            <div className="w-full max-w-2xl min-w-0 flex flex-col gap-3">
+              <h1 className="font-serif text-2xl sm:text-4xl lg:text-5xl font-semibold text-surface-bright tracking-tight leading-tight break-words">
                 {dict.hero.title}
               </h1>
 
-              <p className="text-sm sm:text-base text-surface-variant font-normal leading-relaxed">
+              <p className="text-xs sm:text-base text-surface-variant font-normal leading-relaxed break-words">
                 {dict.hero.subtitle}
               </p>
 
-              <div className="pt-1 flex flex-wrap items-center gap-2">
-                <span className="inline-flex items-center px-3 py-1 rounded-full bg-white/15 backdrop-blur-md border border-white/20 text-[11px] sm:text-xs font-semibold tracking-wider text-surface-bright">
+              <div className="pt-1 flex flex-wrap items-center gap-2 w-full min-w-0">
+                <span className="inline-flex items-center px-2.5 py-1 rounded-full bg-white/15 backdrop-blur-md border border-white/20 text-[11px] sm:text-xs font-semibold tracking-wide text-surface-bright max-w-full">
                   {dict.hero.segmentsLine}
                 </span>
-                <span className="inline-flex items-center px-3 py-1 rounded-full bg-brand-terracotta/30 backdrop-blur-md border border-brand-terracotta-light/40 text-[11px] sm:text-xs font-semibold tracking-wider text-[#FFDAD2]">
+                <span className="inline-flex items-center px-2.5 py-1 rounded-full bg-brand-terracotta/30 backdrop-blur-md border border-brand-terracotta-light/40 text-[11px] sm:text-xs font-semibold tracking-wide text-[#FFDAD2] max-w-full">
                   {dict.hero.locationsLine}
                 </span>
               </div>
             </div>
 
-            <div className="w-full lg:w-80 flex flex-col gap-2.5 shrink-0">
+            <div className="w-full lg:w-80 min-w-0 flex flex-col gap-2.5 shrink-0">
               <button
                 type="button"
                 onClick={() =>
@@ -137,15 +137,15 @@ export default function HomeClient({ lang, dict }: { lang: Locale; dict: any }) 
                     notes: dict.hero.primaryCta,
                   })
                 }
-                className="w-full flex items-center justify-center gap-2 py-3.5 px-5 rounded-xl text-white font-semibold text-sm shadow-lg hover:opacity-95 active:scale-[0.98] transition-all"
+                className="w-full flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl text-white font-semibold text-sm shadow-lg hover:opacity-95 active:scale-[0.98] transition-all"
                 style={{ backgroundColor: "#C86D51" }}
               >
-                <AppIcon name="verified" className="w-5 h-5" />
-                <span>{dict.hero.primaryCta}</span>
+                <AppIcon name="verified" className="w-4 h-4 sm:w-5 sm:h-5" />
+                <span className="truncate">{dict.hero.primaryCta}</span>
               </button>
               <a
                 href="#booking-form"
-                className="w-full py-2.5 px-4 rounded-xl bg-white/10 hover:bg-white/20 backdrop-blur-md text-surface-bright text-center font-semibold text-[11px] uppercase tracking-wider border border-white/15 transition"
+                className="w-full py-2.5 px-3 rounded-xl bg-white/10 hover:bg-white/20 backdrop-blur-md text-surface-bright text-center font-semibold text-[11px] uppercase tracking-wider border border-white/15 transition truncate"
               >
                 {dict.hero.secondaryCta}
               </a>
@@ -154,9 +154,9 @@ export default function HomeClient({ lang, dict }: { lang: Locale; dict: any }) 
         </div>
       </section>
 
-      <div className="max-w-7xl mx-auto w-full">
-        {/* 2. SEGMENT SELECTOR CHIPS (Horizontal Scroll on Mobile, Grid on PC) */}
-        <section className="w-full pt-6 pb-2 px-4 sm:px-6">
+      <div className="max-w-7xl mx-auto w-full min-w-0 box-border">
+        {/* 2. SEGMENT SELECTOR CHIPS (2x2 Grid on Mobile, 4-Col Grid on Tablet/PC) */}
+        <section className="w-full min-w-0 pt-6 pb-2 px-4 sm:px-6 box-border">
           <div className="flex flex-wrap items-center justify-between gap-1 mb-3">
             <span className="font-label-sm text-[11px] text-on-surface-variant uppercase tracking-wider font-semibold">
               {dict.audience.eyebrow}
@@ -167,7 +167,7 @@ export default function HomeClient({ lang, dict }: { lang: Locale; dict: any }) 
           </div>
 
           <div
-            className="flex gap-2 overflow-x-auto no-scrollbar pb-1.5"
+            className="grid grid-cols-2 sm:grid-cols-4 gap-2 w-full"
             role="tablist"
           >
             {dict.audience.segments.map((seg: any, index: number) => {
@@ -179,7 +179,7 @@ export default function HomeClient({ lang, dict }: { lang: Locale; dict: any }) 
                   role="tab"
                   aria-selected={isActive}
                   onClick={() => setActiveSegmentIdx(index)}
-                  className={`flex-shrink-0 flex items-center gap-2 px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all active:scale-95 ${
+                  className={`w-full min-w-0 flex items-center justify-center sm:justify-start gap-2 px-3 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all active:scale-95 ${
                     isActive
                       ? "bg-primary text-on-primary shadow-sm"
                       : "bg-surface-container-low text-on-surface hover:bg-surface-container"
@@ -189,7 +189,7 @@ export default function HomeClient({ lang, dict }: { lang: Locale; dict: any }) 
                     name={segmentIcons[index] || "villa"}
                     className="w-4 h-4"
                   />
-                  <span>{seg.shortLabel}</span>
+                  <span className="truncate">{seg.shortLabel}</span>
                 </button>
               );
             })}
