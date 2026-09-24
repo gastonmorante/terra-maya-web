@@ -115,16 +115,16 @@ export default function LocaleLayout({
     priceRange: "$$$",
     address: {
       "@type": "PostalAddress",
-      streetAddress: "Aldea Zamá & Uptown Tulum, Región 11",
-      addressLocality: "Tulum",
+      streetAddress: "Av. Colosio entre Av. 25 y 30, Col. Centro",
+      addressLocality: "Playa del Carmen",
       addressRegion: "Quintana Roo",
-      postalCode: "77760",
+      postalCode: "77710",
       addressCountry: "MX",
     },
     geo: {
       "@type": "GeoCoordinates",
-      latitude: 20.205,
-      longitude: -87.465,
+      latitude: 20.6386,
+      longitude: -87.0739,
     },
     areaServed: [
       "Tulum",

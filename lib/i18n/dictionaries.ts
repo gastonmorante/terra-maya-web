@@ -8,7 +8,8 @@ export const CONTACT_INFO = {
   whatsappBase: "https://wa.me/5219841750007",
   email: "hola@terramaya.mx",
   operationsEmail: "operations@terramaya.mx",
-  addressLine: "Aldea Zamá & Uptown Tulum, Región 11 · CP 77760, Tulum, Quintana Roo, México",
+  addressLine:
+    "Oficina y Almacén: Av. Colosio entre Av. 25 y 30, Col. Centro, Playa del Carmen, Quintana Roo, C.P. 77710",
   corridorLine: "Tulum • Playa del Carmen • Mayakoba • Puerto Morelos • Cancún, Q. Roo",
 };
 
