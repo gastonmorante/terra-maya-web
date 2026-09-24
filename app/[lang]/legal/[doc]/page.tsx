@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { ArrowLeft } from "lucide-react";
 import {
   getDictionary,
   SUPPORTED_LOCALES,
@@ -44,9 +45,7 @@ export default function LegalDocumentPage({
           href={`/${lang}`}
           className="inline-flex items-center gap-1.5 font-label-md text-primary hover:underline"
         >
-          <span className="material-symbols-outlined text-[18px]">
-            arrow_back
-          </span>
+          <ArrowLeft className="w-4 h-4" />
           <span>{dict.nav.home}</span>
         </Link>
 

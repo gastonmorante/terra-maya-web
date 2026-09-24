@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import {
   CheckCircle2,
@@ -29,75 +29,80 @@ export default function LeadForm({
   compact = false,
   onSuccess,
 }: LeadFormProps) {
-  const formRef = useRef<HTMLFormElement>(null);
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
-  const [notes, setNotes] = useState(defaultNotes);
-  const [segment, setSegment] = useState(
-    defaultSegment || dict.terraCheck.fields.segments[0]
+
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [location, setLocation] = useState(
+    dict.terraCheck.fields.locations?.[0] || "Tulum"
   );
+  const [segment, setSegment] = useState(
+    defaultSegment || dict.terraCheck.fields.segments?.[0] || ""
+  );
+  const [notes, setNotes] = useState(defaultNotes || "");
+
+  const [errors, setErrors] = useState<{
+    name?: boolean;
+    email?: boolean;
+    phone?: boolean;
+  }>({});
 
   useEffect(() => {
-    if (defaultNotes) setNotes(defaultNotes);
+    setNotes(defaultNotes || "");
   }, [defaultNotes]);
 
   useEffect(() => {
-    if (defaultSegment) setSegment(defaultSegment);
+    if (defaultSegment) {
+      setSegment(defaultSegment);
+    }
   }, [defaultSegment]);
 
-  const syncFieldValidity = (
-    el: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-  ) => {
-    if (!el.checkValidity) return;
-    const isValid = el.checkValidity();
-    el.classList.toggle("user-invalid-fallback", !isValid);
-    el.classList.toggle("user-valid-fallback", isValid);
-    if (!isValid) {
-      el.setAttribute("aria-invalid", "true");
-    } else {
-      el.removeAttribute("aria-invalid");
+  const validate = () => {
+    const nextErrors: { name?: boolean; email?: boolean; phone?: boolean } = {};
+    if (name.trim().length < 2) {
+      nextErrors.name = true;
     }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email.trim())) {
+      nextErrors.email = true;
+    }
+    const digitsOnly = phone.replace(/\D/g, "");
+    if (digitsOnly.length < 7) {
+      nextErrors.phone = true;
+    }
+    setErrors(nextErrors);
+    return Object.keys(nextErrors).length === 0;
   };
 
-  const handleBlur = (
-    e: React.FocusEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
-  ) => {
-    if (e.target.value.length > 0 || e.target.hasAttribute("aria-invalid")) {
-      syncFieldValidity(e.target);
-    }
-  };
+  const buildWhatsAppMessage = () => {
+    const header =
+      lang === "es"
+        ? "Hola Terra Maya 🌿 Solicito agendar mi Diagnóstico Terra Check:"
+        : lang === "fr"
+        ? "Bonjour Terra Maya 🌿 Je souhaite planifier mon Diagnostic Terra Check :"
+        : lang === "it"
+        ? "Ciao Terra Maya 🌿 Vorrei prenotare la mia Diagnosi Terra Check:"
+        : "Hello Terra Maya 🌿 I would like to schedule my Terra Check Diagnostic:";
 
-  const handleInput = (
-    e: React.FormEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
-  ) => {
-    const target = e.currentTarget;
-    if (
-      target.hasAttribute("aria-invalid") ||
-      target.classList.contains("user-invalid-fallback")
-    ) {
-      syncFieldValidity(target);
+    const lines = [
+      header,
+      `• ${dict.terraCheck.fields.name}: ${name.trim()}`,
+      `• WhatsApp: ${phone.trim()}`,
+      `• Email: ${email.trim()}`,
+      `• ${dict.terraCheck.fields.location}: ${location}`,
+      `• ${dict.terraCheck.fields.segment}: ${segment}`,
+    ];
+    if (notes.trim()) {
+      lines.push(`• Detalle: ${notes.trim()}`);
     }
+    return lines.join("\n");
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const form = formRef.current;
-    if (!form) return;
-
-    const requiredControls = form.querySelectorAll<
-      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-    >("input[required], select[required], textarea[required]");
-
-    let firstInvalid: HTMLElement | null = null;
-    requiredControls.forEach((control) => {
-      syncFieldValidity(control);
-      if (!control.checkValidity() && !firstInvalid) {
-        firstInvalid = control;
-      }
-    });
-
-    if (firstInvalid) {
-      (firstInvalid as HTMLElement).focus();
+    if (!validate()) {
       return;
     }
 
@@ -106,39 +111,45 @@ export default function LeadForm({
       setSubmitting(false);
       setSubmitted(true);
       if (onSuccess) onSuccess();
-    }, 500);
+    }, 350);
   };
 
   const handleReset = () => {
     setSubmitted(false);
-    formRef.current?.reset();
+    setErrors({});
+    setName("");
+    setEmail("");
+    setPhone("");
+    setNotes("");
   };
 
   if (submitted) {
+    const whatsappHref = `${CONTACT_INFO.whatsappBase}?text=${encodeURIComponent(
+      buildWhatsAppMessage()
+    )}`;
+
     return (
-      <div className="rounded-2xl bg-brand-green text-white p-8 text-center space-y-5 shadow-luxury border border-brand-sand/20">
-        <div className="w-16 h-16 rounded-full bg-brand-terracotta/20 border border-brand-terracotta flex items-center justify-center mx-auto">
-          <CheckCircle2 className="w-9 h-9 text-brand-terracotta" />
+      <div className="rounded-2xl bg-brand-green text-white p-6 sm:p-8 text-center space-y-5 shadow-luxury border border-brand-sand/20">
+        <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-brand-terracotta/20 border border-brand-terracotta flex items-center justify-center mx-auto">
+          <CheckCircle2 className="w-8 h-8 sm:w-9 sm:h-9 text-brand-terracotta" />
         </div>
         <div className="space-y-2">
-          <span className="inline-block text-xs font-semibold uppercase tracking-widest text-brand-sand/80 bg-white/10 px-3 py-1 rounded-full">
+          <span className="inline-block text-[11px] font-semibold uppercase tracking-widest text-brand-sand/80 bg-white/10 px-3 py-1 rounded-full">
             {dict.terraCheck.badge}
           </span>
-          <h3 className="font-serif text-2xl font-bold text-brand-sand">
+          <h3 className="font-serif text-xl sm:text-2xl font-bold text-brand-sand">
             {dict.terraCheck.success.title}
           </h3>
-          <p className="text-sm text-brand-sand/85 max-w-md mx-auto leading-relaxed">
+          <p className="text-xs sm:text-sm text-brand-sand/85 max-w-md mx-auto leading-relaxed">
             {dict.terraCheck.success.desc}
           </p>
         </div>
-        <div className="pt-2 flex flex-wrap items-center justify-center gap-3">
+        <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
           <a
-            href={`${CONTACT_INFO.whatsappBase}?text=${encodeURIComponent(
-              `Hola Terra Maya, acabo de solicitar mi Terra Check (${segment}) - ${notes}`
-            )}`}
+            href={whatsappHref}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-xl bg-brand-terracotta hover:bg-brand-terracotta-dark text-white font-semibold px-5 py-2.5 text-sm transition shadow-md"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl bg-brand-terracotta hover:bg-brand-terracotta-dark text-white font-semibold px-5 py-3 text-sm transition shadow-md"
           >
             <span>WhatsApp 24/7</span>
             <ArrowRight className="w-4 h-4" />
@@ -155,19 +166,18 @@ export default function LeadForm({
     );
   }
 
-  const inputBaseClass =
-    "w-full rounded-xl border border-brand-green/15 bg-white px-4 py-2.5 text-sm text-brand-green shadow-[0_1px_2px_rgba(26,60,52,0.04)] placeholder:text-brand-green/35 hover:border-brand-green/30 focus:border-brand-terracotta focus:outline-none focus:ring-2 focus:ring-brand-terracotta/15 transition-all";
+  const getInputClass = (hasError?: boolean) =>
+    `w-full rounded-xl border ${
+      hasError
+        ? "border-brand-terracotta bg-brand-terracotta/[0.06]"
+        : "border-brand-green/15 bg-white hover:border-brand-green/30"
+    } px-3.5 py-2.5 text-base sm:text-sm text-brand-green shadow-[0_1px_2px_rgba(26,60,52,0.04)] placeholder:text-brand-green/35 focus:border-brand-terracotta focus:outline-none focus:ring-2 focus:ring-brand-terracotta/15 transition-all`;
 
   const labelBaseClass =
     "block text-[11px] font-bold uppercase tracking-wider text-brand-green/85 mb-1.5";
 
   return (
-    <form
-      ref={formRef}
-      onSubmit={handleSubmit}
-      noValidate
-      className="space-y-3.5 text-left"
-    >
+    <form onSubmit={handleSubmit} noValidate className="space-y-3.5 text-left">
       {/* Full Name */}
       <div>
         <label htmlFor="tc-name" className={labelBaseClass}>
@@ -178,17 +188,20 @@ export default function LeadForm({
           id="tc-name"
           name="name"
           type="text"
-          required
-          minLength={2}
+          value={name}
+          onChange={(e) => {
+            setName(e.target.value);
+            if (errors.name) setErrors((prev) => ({ ...prev, name: false }));
+          }}
           placeholder={dict.terraCheck.fields.namePlaceholder}
-          onBlur={handleBlur}
-          onInput={handleInput}
-          className={inputBaseClass}
+          className={getInputClass(errors.name)}
         />
-        <p className="field-error-msg items-center gap-1.5 text-xs text-brand-terracotta font-medium mt-1">
-          <AlertCircle className="w-3.5 h-3.5 shrink-0" />
-          <span>{dict.terraCheck.errors.name}</span>
-        </p>
+        {errors.name && (
+          <p className="flex items-center gap-1.5 text-xs text-brand-terracotta font-medium mt-1">
+            <AlertCircle className="w-3.5 h-3.5 shrink-0" />
+            <span>{dict.terraCheck.errors.name}</span>
+          </p>
+        )}
       </div>
 
       {/* Email & WhatsApp Phone side by side */}
@@ -202,16 +215,21 @@ export default function LeadForm({
             id="tc-email"
             name="email"
             type="email"
-            required
+            inputMode="email"
+            value={email}
+            onChange={(e) => {
+              setEmail(e.target.value);
+              if (errors.email) setErrors((prev) => ({ ...prev, email: false }));
+            }}
             placeholder={dict.terraCheck.fields.emailPlaceholder}
-            onBlur={handleBlur}
-            onInput={handleInput}
-            className={inputBaseClass}
+            className={getInputClass(errors.email)}
           />
-          <p className="field-error-msg items-center gap-1.5 text-xs text-brand-terracotta font-medium mt-1">
-            <AlertCircle className="w-3.5 h-3.5 shrink-0" />
-            <span>{dict.terraCheck.errors.email}</span>
-          </p>
+          {errors.email && (
+            <p className="flex items-center gap-1.5 text-xs text-brand-terracotta font-medium mt-1">
+              <AlertCircle className="w-3.5 h-3.5 shrink-0" />
+              <span>{dict.terraCheck.errors.email}</span>
+            </p>
+          )}
         </div>
 
         <div>
@@ -223,17 +241,21 @@ export default function LeadForm({
             id="tc-phone"
             name="phone"
             type="tel"
-            required
-            pattern="[\+\d\s\-\(\)]{8,20}"
+            inputMode="tel"
+            value={phone}
+            onChange={(e) => {
+              setPhone(e.target.value);
+              if (errors.phone) setErrors((prev) => ({ ...prev, phone: false }));
+            }}
             placeholder={dict.terraCheck.fields.phonePlaceholder}
-            onBlur={handleBlur}
-            onInput={handleInput}
-            className={inputBaseClass}
+            className={getInputClass(errors.phone)}
           />
-          <p className="field-error-msg items-center gap-1.5 text-xs text-brand-terracotta font-medium mt-1">
-            <AlertCircle className="w-3.5 h-3.5 shrink-0" />
-            <span>{dict.terraCheck.errors.phone}</span>
-          </p>
+          {errors.phone && (
+            <p className="flex items-center gap-1.5 text-xs text-brand-terracotta font-medium mt-1">
+              <AlertCircle className="w-3.5 h-3.5 shrink-0" />
+              <span>{dict.terraCheck.errors.phone}</span>
+            </p>
+          )}
         </div>
       </div>
 
@@ -247,7 +269,9 @@ export default function LeadForm({
             <select
               id="tc-location"
               name="location"
-              className={`${inputBaseClass} appearance-none pr-9 cursor-pointer truncate`}
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
+              className={`${getInputClass(false)} appearance-none pr-9 cursor-pointer truncate`}
             >
               {dict.terraCheck.fields.locations.map((loc: string) => (
                 <option key={loc} value={loc}>
@@ -269,7 +293,7 @@ export default function LeadForm({
               name="segment"
               value={segment}
               onChange={(e) => setSegment(e.target.value)}
-              className={`${inputBaseClass} appearance-none pr-9 cursor-pointer truncate`}
+              className={`${getInputClass(false)} appearance-none pr-9 cursor-pointer truncate`}
             >
               {dict.terraCheck.fields.segments.map((seg: string) => (
                 <option key={seg} value={seg}>
@@ -294,7 +318,7 @@ export default function LeadForm({
           value={notes}
           onChange={(e) => setNotes(e.target.value)}
           placeholder={dict.terraCheck.fields.notesPlaceholder}
-          className={`${inputBaseClass} resize-none leading-relaxed`}
+          className={`${getInputClass(false)} resize-none leading-relaxed`}
         />
       </div>
 
@@ -302,19 +326,19 @@ export default function LeadForm({
         <button
           type="submit"
           disabled={submitting}
-          className="w-full flex items-center justify-center gap-2 rounded-xl bg-brand-terracotta hover:bg-brand-terracotta-dark active:scale-[0.99] text-white font-semibold py-3.5 px-6 text-sm shadow-lg shadow-brand-terracotta/25 transition-all duration-200"
+          className="w-full flex items-center justify-center gap-2 rounded-xl bg-brand-terracotta hover:bg-brand-terracotta-dark active:scale-[0.99] text-white font-semibold py-3.5 px-5 text-sm shadow-lg shadow-brand-terracotta/25 transition-all duration-200"
         >
-          <Sparkles className="w-4 h-4" />
-          <span>
+          <Sparkles className="w-4 h-4 shrink-0" />
+          <span className="truncate">
             {submitting
               ? dict.terraCheck.fields.submitting
               : dict.terraCheck.fields.submit}
           </span>
-          <ArrowRight className="w-4 h-4" />
+          <ArrowRight className="w-4 h-4 shrink-0" />
         </button>
       </div>
 
-      <div className="flex flex-wrap items-center justify-center gap-1.5 text-[11px] text-brand-green/65 pt-0.5">
+      <div className="flex flex-wrap items-center justify-center gap-1.5 text-[11px] text-brand-green/65 pt-0.5 text-center">
         <ShieldCheck className="w-3.5 h-3.5 text-brand-terracotta shrink-0" />
         <span>NDA · LFPDPPP · GDPR ·</span>
         <Link

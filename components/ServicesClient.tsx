@@ -197,7 +197,7 @@ export default function ServicesClient({
               className="scroll-mt-28 rounded-3xl bg-white border border-brand-green/15 shadow-card overflow-hidden grid grid-cols-1 lg:grid-cols-12"
             >
               {/* Left Column: Brand Identity with Photorealistic Image & Readability Scrim */}
-              <div className="lg:col-span-5 bg-[#081C17] text-brand-sand p-8 flex flex-col justify-between space-y-6 relative overflow-hidden group">
+              <div className="lg:col-span-5 bg-[#081C17] text-brand-sand p-5 sm:p-8 flex flex-col justify-between space-y-6 relative overflow-hidden group">
                 <img
                   src={`/images/services/${srv.id}.jpg`}
                   alt={`${srv.brand} - ${srv.category}`}
@@ -207,16 +207,16 @@ export default function ServicesClient({
                 <div className="absolute inset-0 bg-gradient-to-t from-[#051410]/95 via-[#09211B]/82 to-[#061712]/70 pointer-events-none" />
 
                 <div className="space-y-4 relative z-10">
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs font-mono uppercase tracking-widest text-[#F4A68E] font-bold bg-black/30 backdrop-blur-sm px-3 py-1 rounded-full border border-white/15">
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="text-[11px] sm:text-xs font-mono uppercase tracking-widest text-[#F4A68E] font-bold bg-black/30 backdrop-blur-sm px-3 py-1 rounded-full border border-white/15">
                       SUB-MARCA 0{idx + 1} · {srv.badge}
                     </span>
-                    <div className="w-11 h-11 rounded-xl bg-brand-terracotta text-white flex items-center justify-center shadow-md">
+                    <div className="w-11 h-11 rounded-xl bg-brand-terracotta text-white flex items-center justify-center shadow-md shrink-0">
                       <SrvIcon className="w-6 h-6" />
                     </div>
                   </div>
 
-                  <h2 className="font-serif text-3xl font-bold text-white drop-shadow-sm">
+                  <h2 className="font-serif text-2xl sm:text-3xl font-bold text-white drop-shadow-sm">
                     {srv.brand}
                   </h2>
                   <p className="text-sm font-semibold text-[#F4A68E] drop-shadow-sm">
@@ -245,7 +245,7 @@ export default function ServicesClient({
               </div>
 
               {/* Right Column: Scope, Evidence & Actions */}
-              <div className="lg:col-span-7 p-8 flex flex-col justify-between space-y-6">
+              <div className="lg:col-span-7 p-5 sm:p-8 flex flex-col justify-between space-y-6">
                 <div className="space-y-4">
                   <h3 className="text-xs font-bold uppercase tracking-widest text-brand-green/60">
                     {lang === "es"

@@ -2,11 +2,12 @@
 
 import React from "react";
 import Link from "next/link";
+import AppIcon from "./AppIcon";
 import { CONTACT_INFO, type Locale } from "@/lib/i18n/dictionaries";
 
 export default function Footer({ lang, dict }: { lang: Locale; dict: any }) {
   return (
-    <footer className="w-full px-4 sm:px-6 py-12 bg-surface-container-lowest border-t border-outline-variant/25">
+    <footer className="w-full px-4 sm:px-6 py-10 sm:py-12 bg-surface-container-lowest border-t border-outline-variant/25">
       <div className="max-w-7xl mx-auto space-y-8">
         {/* Top Row: Brand, Address & Direct Contact */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 text-left">
@@ -15,43 +16,42 @@ export default function Footer({ lang, dict }: { lang: Locale; dict: any }) {
               <img
                 src="/logo.png"
                 alt="Terra Maya Logo"
-                className="h-9 w-auto object-contain"
+                className="h-9 w-auto object-contain shrink-0"
               />
               <div>
-                <span className="block font-title-lg text-title-lg text-primary leading-none">
+                <span className="block font-serif text-lg font-bold text-primary leading-none">
                   Terra Maya
                 </span>
-                <span className="block font-label-sm text-[10px] uppercase tracking-widest text-surface-tint mt-0.5">
+                <span className="block text-[10px] font-bold uppercase tracking-widest text-surface-tint mt-0.5">
                   Facility &amp; Property Services
                 </span>
               </div>
             </div>
-            <p className="font-body-sm text-body-sm text-on-surface-variant max-w-md leading-relaxed">
+            <p className="text-xs sm:text-sm text-on-surface-variant max-w-md leading-relaxed">
               {dict.footer.tagline}
             </p>
-            <div className="space-y-1.5 pt-1 font-body-sm text-xs text-on-surface-variant">
+            <div className="space-y-2 pt-1 text-xs text-on-surface-variant">
               <p className="flex items-start gap-2">
-                <span className="material-symbols-outlined text-[16px] text-primary shrink-0 mt-0.5">
-                  location_on
-                </span>
-                <span>{CONTACT_INFO.addressLine}</span>
+                <AppIcon
+                  name="location_on"
+                  className="w-4 h-4 text-primary mt-0.5"
+                />
+                <span className="leading-snug">{CONTACT_INFO.addressLine}</span>
               </p>
               <p className="flex items-center gap-2">
-                <span className="material-symbols-outlined text-[16px] text-primary shrink-0">
-                  call
-                </span>
+                <AppIcon name="call" className="w-4 h-4 text-primary" />
                 <a
-                  href={`${CONTACT_INFO.whatsappBase}`}
+                  href={CONTACT_INFO.whatsappBase}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="font-semibold text-primary hover:underline"
                 >
-                  WhatsApp Directo: {CONTACT_INFO.phoneDisplay}
+                  WhatsApp 24/7
                 </a>
               </p>
               <p className="flex items-center gap-2">
-                <span className="material-symbols-outlined text-[16px] text-primary shrink-0">
-                  mail
+                <span className="w-4 h-4 inline-flex items-center justify-center text-primary font-bold text-xs shrink-0">
+                  @
                 </span>
                 <a
                   href={`mailto:${CONTACT_INFO.email}`}
@@ -65,10 +65,10 @@ export default function Footer({ lang, dict }: { lang: Locale; dict: any }) {
 
           {/* 7 Divisions Links */}
           <div className="md:col-span-4 space-y-2.5">
-            <h4 className="font-label-sm text-label-sm uppercase tracking-widest text-brand-terracotta">
+            <h4 className="text-[11px] font-bold uppercase tracking-widest text-brand-terracotta">
               {dict.services.eyebrow}
             </h4>
-            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 font-body-sm text-xs text-on-surface-variant">
+            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 text-xs text-on-surface-variant">
               {dict.services.items.map((srv: any) => (
                 <li key={srv.id}>
                   <Link
@@ -84,10 +84,10 @@ export default function Footer({ lang, dict }: { lang: Locale; dict: any }) {
 
           {/* Navigation & Legal Links (Google & Meta Ads Compliant) */}
           <div className="md:col-span-3 space-y-2.5">
-            <h4 className="font-label-sm text-label-sm uppercase tracking-widest text-brand-terracotta">
+            <h4 className="text-[11px] font-bold uppercase tracking-widest text-brand-terracotta">
               Legal &amp; Compliance
             </h4>
-            <ul className="space-y-1.5 font-body-sm text-xs text-on-surface-variant">
+            <ul className="space-y-1.5 text-xs text-on-surface-variant">
               <li>
                 <Link
                   href={`/${lang}/legal/privacy`}
@@ -133,7 +133,7 @@ export default function Footer({ lang, dict }: { lang: Locale; dict: any }) {
         </div>
 
         {/* Bottom Copyright & Corridor Bar */}
-        <div className="pt-6 border-t border-outline-variant/25 flex flex-col sm:flex-row items-center justify-between gap-3 text-on-surface-variant/75 font-label-sm text-label-sm">
+        <div className="pt-6 border-t border-outline-variant/25 flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-left text-on-surface-variant/75 text-[11px]">
           <span>
             © {new Date().getFullYear()} Terra Maya Asset Care Management S.A. de
             C.V. · {dict.footer.rights}

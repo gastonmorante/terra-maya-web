@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import AppIcon from "./AppIcon";
 import type { Locale } from "@/lib/i18n/dictionaries";
 
 export default function CookieConsent({
@@ -49,17 +50,15 @@ export default function CookieConsent({
     <div
       role="region"
       aria-label="Cookie Consent Banner"
-      className="fixed bottom-20 md:bottom-4 left-4 right-4 md:left-6 md:right-auto md:max-w-md z-50 bg-surface-container-lowest/95 backdrop-blur-xl border border-outline-variant/40 rounded-2xl p-4 shadow-2xl text-on-surface"
+      className="fixed bottom-[72px] md:bottom-4 left-3 right-3 md:left-6 md:right-auto md:max-w-md z-50 bg-surface-container-lowest/98 backdrop-blur-xl border border-outline-variant/40 rounded-2xl p-3.5 sm:p-4 shadow-2xl text-on-surface"
     >
-      <div className="flex items-start gap-3">
-        <span className="material-symbols-outlined text-primary text-[20px] shrink-0 mt-0.5">
-          cookie
-        </span>
-        <div className="space-y-2.5 text-xs">
-          <p className="font-label-md text-primary font-semibold">
+      <div className="flex items-start gap-2.5 sm:gap-3">
+        <AppIcon name="cookie" className="w-5 h-5 text-primary mt-0.5" />
+        <div className="space-y-2 text-xs min-w-0">
+          <p className="text-xs font-bold text-primary">
             {dict.legal.cookiesTitle}
           </p>
-          <p className="text-on-surface-variant leading-relaxed">
+          <p className="text-[11px] sm:text-xs text-on-surface-variant leading-relaxed">
             {dict.legal.cookieBannerText}{" "}
             <Link
               href={`/${lang}/legal/privacy`}
@@ -69,18 +68,18 @@ export default function CookieConsent({
             </Link>
             .
           </p>
-          <div className="flex items-center gap-2 pt-1">
+          <div className="flex flex-wrap items-center gap-2 pt-0.5">
             <button
               type="button"
               onClick={() => handleConsent("all")}
-              className="px-3.5 py-2 rounded-xl bg-primary text-on-primary font-label-sm text-label-sm hover:bg-primary-container transition"
+              className="px-3.5 py-2 rounded-xl bg-primary text-on-primary text-xs font-semibold hover:bg-primary-container transition"
             >
               {dict.legal.acceptAll}
             </button>
             <button
               type="button"
               onClick={() => handleConsent("essential")}
-              className="px-3.5 py-2 rounded-xl bg-surface-container text-on-surface font-label-sm text-label-sm hover:bg-surface-container-high transition"
+              className="px-3.5 py-2 rounded-xl bg-surface-container text-on-surface text-xs font-semibold hover:bg-surface-container-high transition"
             >
               {dict.legal.essentialOnly}
             </button>

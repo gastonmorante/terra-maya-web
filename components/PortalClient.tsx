@@ -2,6 +2,7 @@
 
 import React, { useState, useRef } from "react";
 import { useTerraCheck } from "./TerraCheckModal";
+import AppIcon from "./AppIcon";
 import type { Locale } from "@/lib/i18n/dictionaries";
 
 export default function PortalClient({
@@ -145,23 +146,21 @@ export default function PortalClient({
         ];
 
   return (
-    <div className="max-w-5xl mx-auto flex flex-col w-full pb-12">
+    <div className="max-w-5xl mx-auto flex flex-col w-full pb-12 overflow-x-hidden">
       {/* 1. ACTIVE RESIDENCE HEADER CARD + PERIMETER CAMERAS */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 px-4 pt-4">
         {/* Active Residence Card */}
         <div className="lg:col-span-6 bg-surface-container-lowest rounded-xl p-4 shadow-card flex flex-col justify-between gap-3 border border-outline-variant/20">
-          <div className="flex items-center justify-between">
+          <div className="flex flex-wrap items-center justify-between gap-2">
             <div className="flex items-center gap-1.5">
               <span className="w-2.5 h-2.5 rounded-full bg-primary animate-pulse"></span>
-              <span className="font-label-sm text-label-sm uppercase tracking-wider text-surface-tint">
+              <span className="text-[11px] font-bold uppercase tracking-wider text-surface-tint">
                 {lang === "es" ? "Residencia Activa" : "Active Residence"}
               </span>
             </div>
             <div className="bg-surface-container-low px-2.5 py-0.5 rounded-full flex items-center gap-1">
-              <span className="material-symbols-outlined text-primary text-[14px]">
-                verified
-              </span>
-              <span className="font-label-sm text-label-sm text-primary font-semibold">
+              <AppIcon name="verified" className="w-3.5 h-3.5 text-primary" />
+              <span className="text-[11px] text-primary font-semibold">
                 {activeProperty.health}{" "}
                 {lang === "es" ? "Salud del Activo" : "Asset Health"}
               </span>
@@ -170,14 +169,12 @@ export default function PortalClient({
 
           <div className="flex items-center justify-between gap-2">
             <div className="flex flex-col min-w-0">
-              <h1 className="font-headline-sm text-headline-sm text-primary truncate leading-tight">
+              <h1 className="font-serif text-xl sm:text-2xl font-bold text-primary truncate leading-tight">
                 {activeProperty.name}
               </h1>
-              <p className="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1 mt-0.5">
-                <span className="material-symbols-outlined text-[14px] text-surface-tint">
-                  pin_drop
-                </span>
-                {activeProperty.location}
+              <p className="text-xs text-on-surface-variant flex items-center gap-1 mt-0.5">
+                <AppIcon name="pin_drop" className="w-3.5 h-3.5 text-surface-tint" />
+                <span className="truncate">{activeProperty.location}</span>
               </p>
             </div>
             <button
@@ -185,44 +182,38 @@ export default function PortalClient({
               onClick={() =>
                 setPropIndex((prev) => (prev + 1) % properties.length)
               }
-              className="bg-surface-container hover:bg-surface-container-high px-2.5 py-1.5 rounded-lg flex items-center gap-1 text-on-surface-variant active:scale-95 transition-transform"
+              className="bg-surface-container hover:bg-surface-container-high px-2.5 py-1.5 rounded-lg flex items-center gap-1 text-on-surface-variant active:scale-95 transition-transform shrink-0"
             >
-              <span className="font-label-sm text-label-sm">
+              <span className="text-xs font-semibold">
                 {lang === "es" ? "Cambiar" : "Switch"}
               </span>
-              <span className="material-symbols-outlined text-[16px]">
-                expand_more
-              </span>
+              <AppIcon name="expand_more" className="w-4 h-4" />
             </button>
           </div>
 
-          <div className="bg-surface-container-low/70 rounded-lg p-2.5 flex items-center justify-between mt-1">
+          <div className="bg-surface-container-low/70 rounded-lg p-2.5 flex items-center justify-between gap-2 mt-1">
             <div className="flex items-center gap-2.5 min-w-0">
               <div className="w-9 h-9 rounded-full bg-primary-container text-on-primary flex items-center justify-center shrink-0">
-                <span className="material-symbols-outlined text-[18px]">
-                  engineering
-                </span>
+                <AppIcon name="engineering" className="w-4 h-4" />
               </div>
               <div className="flex flex-col min-w-0">
-                <span className="font-label-sm text-label-sm text-primary truncate font-semibold">
+                <span className="text-xs text-primary truncate font-semibold">
                   {activeProperty.director}
                 </span>
-                <span className="font-body-sm text-body-sm text-on-surface-variant text-[11px] leading-none mt-0.5">
+                <span className="text-on-surface-variant text-[11px] leading-none mt-0.5 truncate">
                   {lang === "es"
                     ? "Facility Director Asignado"
                     : "Assigned Facility Director"}
                 </span>
               </div>
             </div>
-            <div className="flex items-center gap-1.5">
+            <div className="flex items-center gap-1.5 shrink-0">
               <a
                 className="w-8 h-8 rounded-full bg-surface-container-lowest text-primary flex items-center justify-center shadow-sm active:bg-surface-container"
                 href="tel:+5219841750007"
                 aria-label="Call Facility Director"
               >
-                <span className="material-symbols-outlined text-[16px]">
-                  call
-                </span>
+                <AppIcon name="call" className="w-4 h-4" />
               </a>
               <a
                 className="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-sm active:bg-primary-container"
@@ -231,9 +222,7 @@ export default function PortalClient({
                 rel="noopener noreferrer"
                 aria-label="WhatsApp Facility Director"
               >
-                <span className="material-symbols-outlined text-[16px]">
-                  chat
-                </span>
+                <AppIcon name="chat" className="w-4 h-4" />
               </a>
             </div>
           </div>
@@ -249,20 +238,20 @@ export default function PortalClient({
             }}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-primary/85 via-primary/25 to-transparent flex flex-col justify-end p-4">
-            <div className="flex items-center justify-between">
-              <div>
-                <span className="font-label-sm text-label-sm text-primary-fixed uppercase tracking-wider">
+            <div className="flex items-center justify-between gap-2">
+              <div className="min-w-0">
+                <span className="text-[10px] font-bold text-primary-fixed uppercase tracking-wider block">
                   {lang === "es"
                     ? "Cámaras Perimetrales & Drone"
                     : "Perimeter Cameras & Drone"}
                 </span>
-                <p className="font-title-lg text-title-lg text-on-primary">
+                <p className="font-serif text-base sm:text-lg font-bold text-on-primary truncate">
                   {lang === "es"
                     ? "Patrullaje Bioclimático OK"
                     : "Bioclimatic Patrol OK"}
                 </p>
               </div>
-              <span className="bg-primary/65 backdrop-blur-md px-2.5 py-1 rounded-full text-on-primary font-label-sm text-label-sm flex items-center gap-1.5">
+              <span className="bg-primary/65 backdrop-blur-md px-2.5 py-1 rounded-full text-on-primary text-[11px] font-semibold flex items-center gap-1.5 shrink-0">
                 <span className="w-1.5 h-1.5 rounded-full bg-primary-fixed animate-ping"></span>
                 {lang === "es" ? "En Vivo" : "Live"}
               </span>
@@ -273,81 +262,77 @@ export default function PortalClient({
 
       {/* 2. REAL-TIME TELEMETRY */}
       <div className="px-4 pt-6">
-        <div className="flex items-center justify-between mb-3">
-          <h2 className="font-title-lg text-title-lg text-primary flex items-center gap-1.5">
-            <span className="material-symbols-outlined text-surface-tint text-[20px]">
-              sensors
+        <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
+          <h2 className="font-serif text-base sm:text-lg font-bold text-primary flex items-center gap-1.5">
+            <AppIcon name="sensors" className="w-5 h-5 text-surface-tint" />
+            <span>
+              {lang === "es"
+                ? "Telemetría en Tiempo Real"
+                : "Real-Time Telemetry"}
             </span>
-            {lang === "es"
-              ? "Telemetría en Tiempo Real"
-              : "Real-Time Telemetry"}
           </h2>
-          <span className="font-label-sm text-label-sm text-surface-tint flex items-center gap-1">
-            <span className="material-symbols-outlined text-[14px]">sync</span>
-            {lang === "es" ? "Act. hace 4m" : "Updated 4m ago"}
+          <span className="text-[11px] font-semibold text-surface-tint flex items-center gap-1">
+            <AppIcon name="sync" className="w-3.5 h-3.5" />
+            <span>{lang === "es" ? "Act. hace 4m" : "Updated 4m ago"}</span>
           </span>
         </div>
 
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
           {/* Infinity Pool Telemetry */}
           <div className="bg-surface-container-lowest p-4 rounded-xl shadow-card border border-outline-variant/20 flex flex-col justify-between col-span-2">
-            <div className="flex items-center justify-between">
+            <div className="flex flex-wrap items-center justify-between gap-2">
               <div className="flex items-center gap-2.5">
-                <div className="w-9 h-9 rounded-lg bg-surface-container flex items-center justify-center text-primary">
-                  <span className="material-symbols-outlined text-[18px]">
-                    pool
-                  </span>
+                <div className="w-9 h-9 rounded-lg bg-surface-container flex items-center justify-center text-primary shrink-0">
+                  <AppIcon name="pool" className="w-4 h-4" />
                 </div>
                 <div>
-                  <p className="font-label-lg text-label-lg text-primary">
+                  <p className="text-sm font-bold text-primary">
                     {lang === "es" ? "Alberca Infinity" : "Infinity Pool"}
                   </p>
-                  <p className="font-body-sm text-body-sm text-on-surface-variant">
+                  <p className="text-xs text-on-surface-variant">
                     {lang === "es"
                       ? "Agua salina cristalina · NOM-245"
                       : "Crystal salt water · NOM-245"}
                   </p>
                 </div>
               </div>
-              <span className="bg-surface-container-low px-2.5 py-0.5 rounded-full font-label-sm text-label-sm text-primary">
+              <span className="bg-surface-container-low px-2.5 py-0.5 rounded-full text-[11px] font-semibold text-primary">
                 {lang === "es" ? "Balance Óptimo" : "Optimal Balance"}
               </span>
             </div>
 
             <div className="grid grid-cols-3 gap-2 mt-3 pt-2 bg-surface-container-low/40 rounded-lg p-2.5">
               <div className="flex flex-col">
-                <span className="font-body-sm text-body-sm text-on-surface-variant text-[11px]">
+                <span className="text-on-surface-variant text-[11px]">
                   pH Alberca
                 </span>
-                <span className="font-headline-sm text-headline-sm text-primary leading-tight">
+                <span className="font-serif text-lg sm:text-xl font-bold text-primary leading-tight">
                   7.4
                 </span>
-                <span className="font-label-sm text-label-sm text-surface-tint flex items-center text-[10px]">
-                  <span className="material-symbols-outlined text-[12px]">
-                    check
-                  </span>{" "}
-                  7.2-7.6
+                <span className="text-surface-tint flex items-center gap-0.5 text-[10px] font-semibold">
+                  <AppIcon name="check" className="w-3 h-3" />
+                  <span>7.2-7.6</span>
                 </span>
               </div>
               <div className="flex flex-col">
-                <span className="font-body-sm text-body-sm text-on-surface-variant text-[11px]">
+                <span className="text-on-surface-variant text-[11px]">
                   {lang === "es" ? "Salinidad" : "Salinity"}
                 </span>
-                <span className="font-headline-sm text-headline-sm text-primary leading-tight">
+                <span className="font-serif text-lg sm:text-xl font-bold text-primary leading-tight">
                   3,180
                 </span>
-                <span className="font-label-sm text-label-sm text-on-surface-variant text-[10px]">
+                <span className="text-on-surface-variant text-[10px]">
                   ppm estables
                 </span>
               </div>
               <div className="flex flex-col">
-                <span className="font-body-sm text-body-sm text-on-surface-variant text-[11px]">
+                <span className="text-on-surface-variant text-[11px]">
                   {lang === "es" ? "Temp. Agua" : "Water Temp"}
                 </span>
-                <span className="font-headline-sm text-headline-sm text-primary leading-tight">
+                <span className="font-serif text-lg sm:text-xl font-bold text-primary leading-tight">
                   28.5°
                 </span>
-                <span className="font-label-sm text-label-sm text-surface-tint text-[10px]">
+                <span className="text-surface-tint text-[10px] font-semibold">
                   {lang === "es" ? "Climatizada" : "Heated"}
                 </span>
               </div>
@@ -358,21 +343,19 @@ export default function PortalClient({
           <div className="bg-surface-container-lowest p-4 rounded-xl shadow-card border border-outline-variant/20 flex flex-col justify-between">
             <div className="flex items-center justify-between mb-1">
               <div className="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-primary">
-                <span className="material-symbols-outlined text-[18px]">
-                  solar_power
-                </span>
+                <AppIcon name="solar_power" className="w-4 h-4" />
               </div>
-              <span className="font-label-sm text-label-sm text-primary bg-primary-fixed/40 px-1.5 py-0.5 rounded">
+              <span className="text-[10px] font-bold text-primary bg-primary-fixed/40 px-1.5 py-0.5 rounded">
                 94% Cap.
               </span>
             </div>
             <div>
-              <span className="font-body-sm text-body-sm text-on-surface-variant">
+              <span className="text-xs text-on-surface-variant">
                 {lang === "es" ? "Generación Solar" : "Solar Output"}
               </span>
-              <p className="font-headline-md text-headline-md text-primary mt-0.5">
+              <p className="font-serif text-xl sm:text-2xl font-bold text-primary mt-0.5">
                 34.8{" "}
-                <span className="font-label-md text-label-md text-on-surface-variant">
+                <span className="text-xs font-normal text-on-surface-variant">
                   kWh
                 </span>
               </p>
@@ -389,26 +372,24 @@ export default function PortalClient({
           <div className="bg-surface-container-lowest p-4 rounded-xl shadow-card border border-outline-variant/20 flex flex-col justify-between">
             <div className="flex items-center justify-between mb-1">
               <div className="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-primary">
-                <span className="material-symbols-outlined text-[18px]">
-                  group
-                </span>
+                <AppIcon name="group" className="w-4 h-4" />
               </div>
-              <span className="font-label-sm text-label-sm text-primary bg-surface-container-high px-1.5 py-0.5 rounded">
+              <span className="text-[10px] font-bold text-primary bg-surface-container-high px-1.5 py-0.5 rounded">
                 {lang === "es" ? "Activos" : "On-Site"}
               </span>
             </div>
             <div>
-              <span className="font-body-sm text-body-sm text-on-surface-variant">
+              <span className="text-xs text-on-surface-variant">
                 {lang === "es" ? "Cuadrilla en Sitio" : "Crew On-Site"}
               </span>
-              <p className="font-headline-md text-headline-md text-primary mt-0.5">
+              <p className="font-serif text-xl sm:text-2xl font-bold text-primary mt-0.5">
                 3{" "}
-                <span className="font-label-md text-label-md text-on-surface-variant">
+                <span className="text-xs font-normal text-on-surface-variant">
                   Esp.
                 </span>
               </p>
             </div>
-            <p className="font-body-sm text-body-sm text-surface-tint truncate text-[11px] mt-2">
+            <p className="text-surface-tint truncate text-[11px] mt-2">
               {lang === "es"
                 ? "Jardín & Mantenimiento"
                 : "Landscaping & Maintenance"}
@@ -422,23 +403,23 @@ export default function PortalClient({
         <div className="bg-surface-container-lowest rounded-xl p-4 sm:p-5 shadow-card border border-outline-variant/20">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3">
             <div>
-              <h3 className="font-title-lg text-title-lg text-primary">
+              <h3 className="font-serif text-base sm:text-lg font-bold text-primary">
                 {lang === "es"
                   ? "Evidencia Visual Interactiva"
                   : "Interactive Visual Evidence"}
               </h3>
-              <p className="font-body-sm text-body-sm text-on-surface-variant">
+              <p className="text-xs text-on-surface-variant">
                 {lang === "es"
                   ? "Protocolo de restauración Deck Zapote · Visor 360° & Drone"
                   : "Zapote Deck Restoration Protocol · 360° & Drone Viewer"}
               </p>
             </div>
 
-            <div className="flex items-center gap-1.5 bg-surface-container-low p-1 rounded-xl">
+            <div className="flex items-center gap-1.5 bg-surface-container-low p-1 rounded-xl self-start sm:self-auto">
               <button
                 type="button"
                 onClick={() => setMediaMode("beforeAfter")}
-                className={`px-2.5 py-1 rounded-lg font-label-sm text-label-sm transition ${
+                className={`px-2.5 py-1.5 rounded-lg text-[11px] font-semibold transition ${
                   mediaMode === "beforeAfter"
                     ? "bg-primary text-on-primary"
                     : "text-on-surface-variant hover:text-primary"
@@ -449,7 +430,7 @@ export default function PortalClient({
               <button
                 type="button"
                 onClick={() => setMediaMode("pano360")}
-                className={`px-2.5 py-1 rounded-lg font-label-sm text-label-sm transition ${
+                className={`px-2.5 py-1.5 rounded-lg text-[11px] font-semibold transition ${
                   mediaMode === "pano360"
                     ? "bg-primary text-on-primary"
                     : "text-on-surface-variant hover:text-primary"
@@ -460,7 +441,7 @@ export default function PortalClient({
               <button
                 type="button"
                 onClick={() => setMediaMode("drone")}
-                className={`px-2.5 py-1 rounded-lg font-label-sm text-label-sm transition ${
+                className={`px-2.5 py-1.5 rounded-lg text-[11px] font-semibold transition ${
                   mediaMode === "drone"
                     ? "bg-primary text-on-primary"
                     : "text-on-surface-variant hover:text-primary"
@@ -503,7 +484,7 @@ export default function PortalClient({
                         "url('https://lh3.googleusercontent.com/aida-public/AB6AXuBxs2H6GK1aMGt8k8G_Mq7mx22eqE611MzO5ZWh0EgwHL4B-uPc2ZuIZds-rArA3APj_l-1VQ_WrVjBzCOUenir1uCcBvRFxgQlzhqtk4Tni9zbj4TmLI01HZ_eYu2mqBeMy7dm3eTfSfVvYFC9hGs5LDoNn7aXbAiAMDFDcwdp_D3eRpXWVNqak1PMQHIKLLauuZ-Id-VSah9xoA-7nAI_MbWFtfeY49THGIUJoFrBWyUPiBRZl_oLuA')",
                     }}
                   />
-                  <span className="absolute top-2.5 right-2.5 bg-primary/85 backdrop-blur-sm text-on-primary font-label-sm text-label-sm px-2.5 py-1 rounded">
+                  <span className="absolute top-2.5 right-2.5 bg-primary/85 backdrop-blur-sm text-on-primary text-[10px] font-bold px-2.5 py-1 rounded">
                     {lang === "es" ? "DESPUÉS (Hoy)" : "AFTER (Today)"}
                   </span>
                 </div>
@@ -520,7 +501,7 @@ export default function PortalClient({
                         "url('https://lh3.googleusercontent.com/aida-public/AB6AXuCEGVa5xls6AnPCxshTPP3520E91wRYaybdTPYHr1NjBYiKM-70898GiFr2En2-UlqIaNoBLpOarnzqWeTX1QnJE1_G1kRTBX7THLkacyrajDKlLeRYqgShNzR3AbPUXtu3MsWw4HGtj5jbAkOluqq3nVCzzp71zk8ZZk-9QwlP-bSarVdJ8w_QVt9FwohoUE1mqYQPK6GjlBF-iYDUdtf0IREPQ1iuBoSRtQv_ttQ78TskkKQ6cH7Sgg')",
                     }}
                   />
-                  <span className="absolute top-2.5 left-2.5 bg-inverse-surface/85 backdrop-blur-sm text-inverse-on-surface font-label-sm text-label-sm px-2.5 py-1 rounded">
+                  <span className="absolute top-2.5 left-2.5 bg-inverse-surface/85 backdrop-blur-sm text-inverse-on-surface text-[10px] font-bold px-2.5 py-1 rounded">
                     {lang === "es" ? "ANTES" : "BEFORE"}
                   </span>
                 </div>
@@ -531,13 +512,11 @@ export default function PortalClient({
                   style={{ left: `${sliderPct}%` }}
                 >
                   <div className="w-8 h-8 rounded-full bg-surface-container-lowest text-primary flex items-center justify-center shadow-lg">
-                    <span className="material-symbols-outlined text-[18px]">
-                      drag_indicator
-                    </span>
+                    <AppIcon name="drag_indicator" className="w-4 h-4" />
                   </div>
                 </div>
               </div>
-              <p className="font-body-sm text-body-sm text-on-surface-variant mt-2.5 text-center text-[12px]">
+              <p className="text-on-surface-variant mt-2.5 text-center text-xs">
                 {lang === "es"
                   ? "Tratamiento de hidratación botánica con aceites nativos UV50 aplicado hace 3 horas."
                   : "Botanical hydration treatment with native UV50 oils applied 3 hours ago."}
@@ -556,18 +535,16 @@ export default function PortalClient({
                   backgroundPosition: `${panoYaw}% center`,
                 }}
               >
-                <div className="flex items-center justify-between text-xs">
-                  <span className="bg-primary/80 backdrop-blur-md px-3 py-1 rounded-full font-label-sm">
+                <div className="flex flex-wrap items-center justify-between gap-2 text-[11px]">
+                  <span className="bg-primary/80 backdrop-blur-md px-3 py-1 rounded-full font-semibold">
                     360° NAVIGABLE TOUR · YAW {panoYaw}°
                   </span>
-                  <span className="bg-brand-terracotta px-2.5 py-1 rounded-full font-label-sm">
+                  <span className="bg-brand-terracotta px-2.5 py-1 rounded-full font-semibold">
                     {activeProperty.name}
                   </span>
                 </div>
                 <div className="bg-primary/80 backdrop-blur-md p-2.5 rounded-xl flex items-center gap-3">
-                  <span className="material-symbols-outlined text-[18px]">
-                    360
-                  </span>
+                  <AppIcon name="360" className="w-4 h-4" />
                   <input
                     type="range"
                     min={0}
@@ -591,24 +568,24 @@ export default function PortalClient({
                 }}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-primary/85 via-transparent to-primary/40 p-4 flex flex-col justify-between text-white">
-                <div className="flex items-center justify-between">
-                  <span className="bg-primary/80 backdrop-blur-md px-3 py-1 rounded-full font-label-sm">
-                    AFAC NOM-107 · 4K THERMAL & ROOF ORTHOMOSAIC
+                <div className="flex flex-wrap items-center justify-between gap-2 text-[11px]">
+                  <span className="bg-primary/80 backdrop-blur-md px-3 py-1 rounded-full font-semibold">
+                    AFAC NOM-107 · 4K DRONE
                   </span>
-                  <span className="bg-emerald-700 px-2.5 py-1 rounded-full font-label-sm">
+                  <span className="bg-emerald-700 px-2.5 py-1 rounded-full font-semibold">
                     12 Paneles 100% Limpios
                   </span>
                 </div>
                 <div className="bg-primary/85 backdrop-blur-md p-3 rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                  <span className="font-body-sm text-xs">
+                  <span className="text-xs">
                     {lang === "es"
-                      ? "Hallazgo preventivo: Microfisura en chaflán norte ($2,850 MXN)"
-                      : "Preventive finding: Minor roof flashing micro-fissure ($2,850 MXN)"}
+                      ? "Hallazgo preventivo: Microfisura en chaflán norte"
+                      : "Preventive finding: Minor roof flashing micro-fissure"}
                   </span>
                   <button
                     type="button"
                     onClick={() => setQuoteApproved(true)}
-                    className="px-3 py-1.5 rounded-lg bg-brand-terracotta text-white font-label-sm text-xs shrink-0"
+                    className="px-3 py-1.5 rounded-lg bg-brand-terracotta text-white font-semibold text-xs shrink-0"
                   >
                     {quoteApproved
                       ? lang === "es"
@@ -628,18 +605,18 @@ export default function PortalClient({
       {/* 4. AUDIT PHOTO LOG */}
       <div className="px-4 pt-6">
         <div className="flex items-center justify-between mb-3">
-          <h3 className="font-title-lg text-title-lg text-primary flex items-center gap-1.5">
-            <span className="material-symbols-outlined text-surface-tint text-[20px]">
-              photo_camera
+          <h3 className="font-serif text-base sm:text-lg font-bold text-primary flex items-center gap-1.5">
+            <AppIcon name="photo_camera" className="w-5 h-5 text-surface-tint" />
+            <span>
+              {lang === "es"
+                ? "Registro Fotográfico de Auditoría"
+                : "Audit Photo Log"}
             </span>
-            {lang === "es"
-              ? "Registro Fotográfico de Auditoría"
-              : "Audit Photo Log"}
           </h3>
           <button
             type="button"
             onClick={() => setMediaMode("pano360")}
-            className="font-label-sm text-label-sm text-primary underline"
+            className="text-xs font-semibold text-primary underline"
           >
             {lang === "es" ? "Ver Álbum (42)" : "View Album (42)"}
           </button>
@@ -656,15 +633,15 @@ export default function PortalClient({
                   className="w-full h-full bg-cover bg-center"
                   style={{ backgroundImage: `url('${photo.img}')` }}
                 />
-                <span className="absolute bottom-2 left-2 bg-primary/80 backdrop-blur-sm text-on-primary font-label-sm text-label-sm px-2 py-0.5 rounded text-[10px]">
+                <span className="absolute bottom-2 left-2 bg-primary/80 backdrop-blur-sm text-on-primary font-semibold px-2 py-0.5 rounded text-[10px]">
                   {photo.time}
                 </span>
               </div>
               <div className="p-3 flex flex-col gap-0.5">
-                <span className="font-label-sm text-label-sm text-primary font-semibold">
+                <span className="text-xs text-primary font-semibold">
                   {photo.title}
                 </span>
-                <span className="font-body-sm text-body-sm text-on-surface-variant text-[11px]">
+                <span className="text-on-surface-variant text-[11px]">
                   {photo.subtitle}
                 </span>
               </div>
@@ -683,14 +660,14 @@ export default function PortalClient({
               notes: `Ticket 1-Click prioritario desde Portal (${activeProperty.name})`,
             });
           }}
-          className="w-full bg-tertiary hover:bg-tertiary-container text-on-tertiary rounded-xl p-4 flex items-center justify-between shadow-lg active:scale-[0.99] transition-all"
+          className="w-full bg-tertiary hover:bg-tertiary-container text-on-tertiary rounded-xl p-4 flex items-center justify-between gap-3 shadow-lg active:scale-[0.99] transition-all"
         >
-          <div className="flex items-center gap-3 text-left">
+          <div className="flex items-center gap-3 text-left min-w-0">
             <div className="w-10 h-10 rounded-full bg-tertiary-container text-on-tertiary-container flex items-center justify-center shrink-0">
-              <span className="material-symbols-outlined text-[24px]">bolt</span>
+              <AppIcon name="bolt" className="w-5 h-5" />
             </div>
-            <div className="flex flex-col">
-              <span className="font-headline-sm text-headline-sm text-on-tertiary leading-snug">
+            <div className="flex flex-col min-w-0">
+              <span className="font-serif text-base sm:text-lg font-bold text-on-tertiary leading-snug truncate">
                 {ticketDispatched
                   ? lang === "es"
                     ? "Ticket Prioritario Activo"
@@ -699,38 +676,37 @@ export default function PortalClient({
                   ? "Emitir Ticket 1-Click"
                   : "Issue 1-Click Priority Ticket"}
               </span>
-              <span className="font-label-sm text-label-sm text-tertiary-fixed font-medium">
+              <span className="text-[11px] text-tertiary-fixed font-medium">
                 {lang === "es"
                   ? "SLA de Respuesta Inmediata ≤ 2 Horas"
                   : "Immediate SLA Response ≤ 2 Hours"}
               </span>
             </div>
           </div>
-          <span className="material-symbols-outlined text-on-tertiary text-[22px]">
-            chevron_right
-          </span>
+          <AppIcon name="chevron_right" className="w-5 h-5 text-on-tertiary" />
         </button>
       </div>
 
       {/* 6. SCHEDULED PREVENTIVE MAINTENANCE */}
       <div className="px-4 pt-6">
-        <div className="flex items-center justify-between mb-3">
-          <h3 className="font-title-lg text-title-lg text-primary flex items-center gap-1.5">
-            <span className="material-symbols-outlined text-surface-tint text-[20px]">
-              calendar_month
+        <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
+          <h3 className="font-serif text-base sm:text-lg font-bold text-primary flex items-center gap-1.5">
+            <AppIcon
+              name="calendar_month"
+              className="w-5 h-5 text-surface-tint"
+            />
+            <span>
+              {lang === "es"
+                ? "Mantenimiento Preventivo Programado"
+                : "Scheduled Preventive Maintenance"}
             </span>
-            {lang === "es"
-              ? "Mantenimiento Preventivo Programado"
-              : "Scheduled Preventive Maintenance"}
           </h3>
           <button
             type="button"
             onClick={() => setCalendarSynced(true)}
-            className="font-label-sm text-label-sm text-primary flex items-center gap-1 bg-surface-container hover:bg-surface-container-high px-2.5 py-1.5 rounded-md transition"
+            className="text-xs font-semibold text-primary flex items-center gap-1 bg-surface-container hover:bg-surface-container-high px-2.5 py-1.5 rounded-md transition shrink-0"
           >
-            <span className="material-symbols-outlined text-[14px]">
-              event_repeat
-            </span>
+            <AppIcon name="event_repeat" className="w-3.5 h-3.5" />
             <span>
               {calendarSynced
                 ? lang === "es"
@@ -747,27 +723,27 @@ export default function PortalClient({
           {scheduledEvents.map((ev, idx) => (
             <div
               key={idx}
-              className="bg-surface-container-lowest p-4 rounded-xl shadow-card border border-outline-variant/20 flex items-center justify-between"
+              className="bg-surface-container-lowest p-4 rounded-xl shadow-card border border-outline-variant/20 flex items-center justify-between gap-3"
             >
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-3 min-w-0">
                 <div className="w-11 h-11 rounded-lg bg-surface-container-low flex flex-col items-center justify-center text-primary shrink-0">
-                  <span className="font-label-sm text-label-sm uppercase leading-none font-bold">
+                  <span className="text-[10px] uppercase leading-none font-bold">
                     {ev.month}
                   </span>
-                  <span className="font-title-lg text-title-lg leading-none font-bold mt-0.5">
+                  <span className="font-serif text-base leading-none font-bold mt-0.5">
                     {ev.day}
                   </span>
                 </div>
-                <div className="flex flex-col">
-                  <span className="font-label-lg text-label-lg text-primary">
+                <div className="flex flex-col min-w-0">
+                  <span className="text-sm font-bold text-primary truncate">
                     {ev.title}
                   </span>
-                  <span className="font-body-sm text-body-sm text-on-surface-variant">
+                  <span className="text-xs text-on-surface-variant truncate">
                     {ev.desc}
                   </span>
                 </div>
               </div>
-              <span className="font-label-sm text-label-sm bg-surface-container px-2.5 py-1 rounded text-primary">
+              <span className="text-[11px] font-semibold bg-surface-container px-2.5 py-1 rounded text-primary shrink-0">
                 {ev.time}
               </span>
             </div>
@@ -780,36 +756,34 @@ export default function PortalClient({
         <div className="bg-surface-container rounded-xl p-4 flex flex-col gap-2 border border-outline-variant/30">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <span className="material-symbols-outlined text-primary text-[20px]">
-                shield
-              </span>
-              <span className="font-label-sm text-label-sm uppercase tracking-wider text-primary font-semibold">
+              <AppIcon name="shield" className="w-5 h-5 text-primary" />
+              <span className="text-xs uppercase tracking-wider text-primary font-bold">
                 {lang === "es"
                   ? "Cifrado Bancario TLS 1.3"
                   : "TLS 1.3 Bank-Grade Encryption"}
               </span>
             </div>
-            <span className="material-symbols-outlined text-surface-tint text-[18px]">
-              lock
-            </span>
+            <AppIcon name="lock" className="w-4 h-4 text-surface-tint" />
           </div>
-          <p className="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+          <p className="text-xs text-on-surface-variant leading-relaxed">
             {lang === "es"
               ? "Reporte auditado con validez oficial ante Notaría y Aseguradoras. Personal técnico avalado con Cédula Profesional Federal de la Dirección General de Profesiones."
               : "Audited report with official validity before Notaries and Insurers. Technical staff certified with Federal Professional Licenses."}
           </p>
-          <div className="flex items-center gap-4 pt-1 font-label-sm text-label-sm text-on-surface-variant">
+          <div className="flex flex-wrap items-center gap-4 pt-1 text-[11px] font-semibold text-on-surface-variant">
             <span className="flex items-center gap-1">
-              <span className="material-symbols-outlined text-[14px] text-surface-tint">
-                check_circle
-              </span>
-              {lang === "es" ? "Auditoría Activa" : "Active Audit"}
+              <AppIcon
+                name="check_circle"
+                className="w-3.5 h-3.5 text-surface-tint"
+              />
+              <span>{lang === "es" ? "Auditoría Activa" : "Active Audit"}</span>
             </span>
             <span className="flex items-center gap-1">
-              <span className="material-symbols-outlined text-[14px] text-surface-tint">
-                verified_user
-              </span>
-              {lang === "es" ? "Póliza Vigente" : "Policy Active"}
+              <AppIcon
+                name="verified_user"
+                className="w-3.5 h-3.5 text-surface-tint"
+              />
+              <span>{lang === "es" ? "Póliza Vigente" : "Policy Active"}</span>
             </span>
           </div>
         </div>

@@ -4,6 +4,7 @@ import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTerraCheck } from "./TerraCheckModal";
+import AppIcon from "./AppIcon";
 import { SUPPORTED_LOCALES, type Locale } from "@/lib/i18n/dictionaries";
 
 export default function Navbar({ lang, dict }: { lang: Locale; dict: any }) {
@@ -23,6 +24,13 @@ export default function Navbar({ lang, dict }: { lang: Locale; dict: any }) {
     if (pathname.includes("/pricing")) return dict.nav.pricing;
     if (pathname.includes("/solutions")) return dict.nav.solutions;
     return dict.nav.home;
+  };
+
+  const defaultHeaderNote: Record<Locale, string> = {
+    es: "Solicitud de Diagnóstico Terra Check Gratuito",
+    en: "Complimentary Terra Check Diagnostic Request",
+    fr: "Demande de Diagnostic Terra Check Gratuit",
+    it: "Richiesta di Diagnosi Terra Check Gratuita",
   };
 
   const navItems = [
@@ -63,20 +71,20 @@ export default function Navbar({ lang, dict }: { lang: Locale; dict: any }) {
   return (
     <>
       {/* TOP FIXED HEADER (Native Mobile + Adaptive Tablet/PC) */}
-      <header className="fixed top-0 w-full z-50 pt-safe bg-surface/90 backdrop-blur-xl shadow-[0_2px_8px_-2px_rgba(20,30,27,0.04)] border-b border-outline-variant/25">
-        <div className="max-w-7xl mx-auto h-16 px-3 sm:px-6 flex items-center justify-between gap-2">
+      <header className="fixed top-0 left-0 right-0 w-full z-50 pt-safe bg-surface/95 backdrop-blur-xl shadow-[0_2px_8px_-2px_rgba(20,30,27,0.05)] border-b border-outline-variant/25">
+        <div className="max-w-7xl mx-auto h-16 px-3.5 sm:px-6 flex items-center justify-between gap-2">
           {/* Brand Logo & Dynamic Subtitle */}
-          <Link href={`/${lang}`} className="flex items-center gap-2 shrink-0">
+          <Link href={`/${lang}`} className="flex items-center gap-2 min-w-0 shrink">
             <img
               alt="Terra Maya Logo"
-              className="h-8 sm:h-9 w-auto object-contain"
+              className="h-8 sm:h-9 w-auto object-contain shrink-0"
               src="/logo.png"
             />
-            <div className="flex flex-col">
-              <span className="font-title-lg text-base sm:text-title-lg text-primary leading-none tracking-tight">
+            <div className="flex flex-col min-w-0">
+              <span className="font-title-lg text-[15px] sm:text-title-lg text-primary leading-none tracking-tight truncate">
                 Terra Maya
               </span>
-              <span className="font-label-sm text-[10px] text-on-surface-variant font-medium mt-0.5 truncate max-w-[120px] sm:max-w-none">
+              <span className="font-label-sm text-[10px] text-on-surface-variant font-medium mt-0.5 truncate max-w-[95px] sm:max-w-none">
                 {getSectionSubtitle()}
               </span>
             </div>
@@ -96,17 +104,15 @@ export default function Navbar({ lang, dict }: { lang: Locale; dict: any }) {
                       : "text-on-surface-variant hover:text-primary hover:bg-surface-container-lowest"
                   }`}
                 >
-                  <span className="material-symbols-outlined text-[18px]">
-                    {item.icon}
-                  </span>
+                  <AppIcon name={item.icon} className="w-4 h-4" />
                   <span>{item.label}</span>
                 </Link>
               );
             })}
           </nav>
 
-          {/* Right Controls: 4-Language Switcher (ES/EN/FR/IT) + Emergency CTA + Portal User */}
-          <div className="flex items-center gap-1 sm:gap-1.5">
+          {/* Right Controls: 4-Language Switcher (ES/EN/FR/IT) + Terra Check CTA + Portal User */}
+          <div className="flex items-center gap-1.5 shrink-0">
             <div
               role="group"
               aria-label="Language Selector"
@@ -118,7 +124,7 @@ export default function Navbar({ lang, dict }: { lang: Locale; dict: any }) {
                   <Link
                     key={loc}
                     href={buildLangHref(loc)}
-                    className={`min-h-[32px] px-1.5 sm:px-2 rounded-lg flex items-center justify-center font-label-sm text-[10px] uppercase tracking-wider transition-all ${
+                    className={`min-h-[30px] px-1.5 sm:px-2 rounded-lg flex items-center justify-center font-label-sm text-[10px] uppercase tracking-wider transition-all ${
                       isCurrent
                         ? "bg-primary text-on-primary font-bold shadow-sm"
                         : "text-on-surface-variant hover:text-primary"
@@ -134,16 +140,14 @@ export default function Navbar({ lang, dict }: { lang: Locale; dict: any }) {
               type="button"
               onClick={() =>
                 openTerraCheck({
-                  notes: "Terra Check / Priority Dispatch (< 2h)",
+                  notes: defaultHeaderNote[lang] || defaultHeaderNote.es,
                 })
               }
               aria-label={dict.nav.cta}
               title={dict.nav.cta}
-              className="min-h-[38px] min-w-[38px] sm:px-3 flex items-center justify-center gap-1.5 text-tertiary bg-tertiary-fixed rounded-full shadow-[0_1px_3px_rgba(74,69,62,0.08)] hover:bg-tertiary-fixed-dim transition-all"
+              className="h-9 min-w-[36px] px-2.5 sm:px-3.5 flex items-center justify-center gap-1.5 text-white bg-brand-terracotta hover:bg-brand-terracotta-dark rounded-full shadow-sm transition-all shrink-0"
             >
-              <span className="material-symbols-outlined text-[19px]">
-                emergency
-              </span>
+              <AppIcon name="verified" className="w-4 h-4" />
               <span className="hidden lg:inline font-label-sm text-label-sm font-bold uppercase tracking-wider">
                 {dict.nav.cta}
               </span>
@@ -152,11 +156,9 @@ export default function Navbar({ lang, dict }: { lang: Locale; dict: any }) {
             <Link
               href={`/${lang}/portal`}
               aria-label="Client Portal"
-              className="w-9 h-9 rounded-full bg-primary hover:bg-primary-container flex items-center justify-center shadow-sm transition-colors shrink-0"
+              className="w-9 h-9 rounded-full bg-primary hover:bg-primary-container text-on-primary flex items-center justify-center shadow-sm transition-colors shrink-0"
             >
-              <span className="material-symbols-outlined text-on-primary text-[18px]">
-                person
-              </span>
+              <AppIcon name="person" className="w-4 h-4" />
             </Link>
           </div>
         </div>
@@ -165,9 +167,9 @@ export default function Navbar({ lang, dict }: { lang: Locale; dict: any }) {
       {/* BOTTOM MOBILE TAB BAR (Native Mobile App Shell) */}
       <nav
         aria-label="Mobile Bottom Navigation"
-        className="md:hidden fixed bottom-0 w-full z-50 pb-safe bg-surface-container-lowest/95 backdrop-blur-xl shadow-[0_-4px_16px_rgba(20,30,27,0.06)] border-t border-outline-variant/25"
+        className="md:hidden fixed bottom-0 left-0 right-0 w-full z-50 pb-safe bg-surface-container-lowest/95 backdrop-blur-xl shadow-[0_-4px_16px_rgba(20,30,27,0.06)] border-t border-outline-variant/25"
       >
-        <div className="flex justify-around items-center h-16 px-1">
+        <div className="grid grid-cols-4 items-center h-16 px-1">
           {navItems
             .filter((i) => !i.desktopOnly)
             .map((item) => {
@@ -177,16 +179,16 @@ export default function Navbar({ lang, dict }: { lang: Locale; dict: any }) {
                   key={item.href}
                   href={item.href}
                   aria-current={active ? "page" : undefined}
-                  className={`flex flex-col items-center justify-center min-w-[64px] min-h-[44px] px-2 py-1 transition-all gap-0.5 ${
+                  className={`flex flex-col items-center justify-center min-h-[48px] px-1 py-1 transition-all gap-1 ${
                     active
-                      ? "text-primary font-semibold relative after:content-[''] after:absolute after:bottom-1 after:w-1.5 after:h-1.5 after:rounded-full after:bg-brand-terracotta"
+                      ? "text-primary font-semibold relative after:content-[''] after:absolute after:bottom-0.5 after:w-1.5 after:h-1.5 after:rounded-full after:bg-brand-terracotta"
                       : "text-on-surface-variant hover:text-primary"
                   }`}
                 >
-                  <span className="material-symbols-outlined text-[22px]">
-                    {item.icon}
+                  <AppIcon name={item.icon} className="w-5 h-5" />
+                  <span className="font-label-sm text-[10px] leading-none truncate max-w-full">
+                    {item.label}
                   </span>
-                  <span className="font-label-sm text-[10px]">{item.label}</span>
                 </Link>
               );
             })}
